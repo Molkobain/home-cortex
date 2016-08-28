@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet" />
+        <link href="{{ app['instance.base_url']}}web/lib/bootstrap-3.3.7/css/bootstrap.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+        <link href="{{ app['instance.base_url']}}web/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+        <link href="{{ app['instance.base_url']}}web/lib/font-awesome-4.6.3/font-awesome.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+
+        <script type="text/javascript" src="{{ app['instance.base_url']}}web/lib/jquery-3.1.0/jquery-3.1.0.min.js?v={{ app['instance.version'] }}"></script>
+        <script type="text/javascript" src="{{ app['instance.base_url']}}web/lib/bootstrap-3.3.7/js/bootstrap.min.js?v={{ app['instance.version'] }}"></script>
+    </head>
+    <body>
+        <div id="weather_widget" class="widget effect_opacity">
+            <div id="weather_temp">31°</div>
+            <div id="weather_icon"></div>
+            <div id="weather_desc">Soleil toute la journée</div>
+            <div id="weather_rain_prob">
+                <span class="umbrella_icon"></span>
+            </div>
+        </div>
+        <div id="time_widget" class="widget effect_opacity">
+            <div id="time_time">07:56</div>
+            <div id="time_date">Samedi 27 août</div>
+        </div>
+        <div id="transport_widget" class="widget effect_opacity">
+            <div class="tsp_lines">
+                <div class="tsp_line" data-id="SEM:C3:1">
+                    <div class="tsp_line_header">
+                        <div class="tsp_line_logo" style="background-color: yellow; color: black;">C3</div>
+                        <div class="tsp_line_title">
+                            <div class="tsp_line_stop">Championnet</div>
+                            <div class="tsp_line_direction">Dir. Victor Hugo</div>
+                        </div>
+                    </div>
+                    <div class="tsp_line_content">
+                        <div class="tsp_line_times">
+                            <div class="tsp_line_time">Prochain dans 2min</div>
+                            <div class="tsp_line_time">Suivant dans 11min</div>
+                            <div class="tsp_line_time">... 20min</div>
+                            <div class="tsp_line_time">... 29min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="calendar_widget" class="widget effect_opacity">
+
+        </div>
+        </body>
+    </html>

@@ -1,0 +1,82 @@
+body{
+    font-family: 'Roboto', serif;
+    font-size: 1em;
+    font-weight: 300;
+    color: #FFF;
+    background-color: #000;
+}
+
+.effect_opacity{
+    transition-duration: 1.5s;
+    transition-property: opacity;
+}
+
+#weather_widget{
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    text-align: right;
+}
+#weather_temp{
+    font-size: 80px;
+    /*font-size: 5em;*/
+}
+#weather_icon{
+
+}
+
+#time_widget{
+    position: absolute;
+    top: 40px;
+    left:50px;
+    text-align: left;
+}
+#time_time{
+    font-size: 72px;
+    /*font-size: 4.5em;*/
+}
+#time_date{
+    font-size: 19px;
+    /*font-size: 1.2em;*/
+}
+
+#transport_widget{
+    position:absolute;
+    top: 280px;
+    right: 50px;
+    text-align: right;
+}
+.tsp_line .tsp_line_header{
+    margin-bottom: 8px;
+}
+.tsp_line .tsp_line_header:after{
+    clear: both;
+}
+.tsp_line .tsp_line_logo{
+    float: left;
+    margin-top: 5px;
+    padding: 3px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 25px;
+}
+.tsp_line .tsp_line_header .tsp_line_title{
+    font-size: 18px;
+}
+.tsp_line .tsp_line_header .tsp_line_direction{
+    font-size: 12px;
+    font-style: italic;
+}
+.tsp_line .tsp_line_content .tsp_line_time{
+    font-size: 16px;
+    color: #999;
+}
+.tsp_line .tsp_line_content .tsp_line_time:nth-child(3){
+    color: #CCC;
+}
+.tsp_line .tsp_line_content .tsp_line_time:nth-child(2){
+    color: #EEE;
+}
+.tsp_line .tsp_line_content .tsp_line_time:nth-child(1){
+    color: #FFF;
+}
