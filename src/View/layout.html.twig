@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>{% block pPageTitle %}{% if sPageTitle is defined and sPageTitle is not null %}{{ sPageTitle }}{% else %}{{ app['instance.name'] }}{% endif %}{% endblock %}</title>
+
+        {% block pMetaTags %}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {% endblock %}
 
+        {% block pStyleSheets %}
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet" />
-        <link href="{{ app['instance.base_url']}}web/lib/bootstrap-3.3.7/css/bootstrap.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
-        <link href="{{ app['instance.base_url']}}web/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
-        <link href="{{ app['instance.base_url']}}web/lib/font-awesome-4.6.3/font-awesome.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            {# Bootstrap #}
+        <link href="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/css/bootstrap.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+        <link href="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            {# FontAwesome #}
+        <link href="{{ app['instance.base_url']}}/lib/font-awesome-4.6.3/css/font-awesome.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            {# Application #}
+        <link href="{{ app['instance.base_url']}}/css/main.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+        {% endblock %}
 
-        <script type="text/javascript" src="{{ app['instance.base_url']}}web/lib/jquery-3.1.0/jquery-3.1.0.min.js?v={{ app['instance.version'] }}"></script>
-        <script type="text/javascript" src="{{ app['instance.base_url']}}web/lib/bootstrap-3.3.7/js/bootstrap.min.js?v={{ app['instance.version'] }}"></script>
+        {% block pScripts %}
+        <script type="text/javascript" src="{{ app['instance.base_url']}}/lib/jquery-3.1.0/jquery-3.1.0.min.js?v={{ app['instance.version'] }}"></script>
+        <script type="text/javascript" src="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/js/bootstrap.min.js?v={{ app['instance.version'] }}"></script>
+        {% endblock %}
     </head>
     <body>
         <div id="weather_widget" class="widget effect_opacity">
@@ -37,10 +50,10 @@
                     </div>
                     <div class="tsp_line_content">
                         <div class="tsp_line_times">
-                            <div class="tsp_line_time">Prochain dans 2min</div>
-                            <div class="tsp_line_time">Suivant dans 11min</div>
-                            <div class="tsp_line_time">... 20min</div>
-                            <div class="tsp_line_time">... 29min</div>
+                            <div class="tsp_line_time">Prochain dans 2min<span class="fa fa-fw fa-rss" aria-hidden="true"></span></div>
+                            <div class="tsp_line_time">Suivant dans 11min<span class="fa fa-fw fa-rss" aria-hidden="true"></span></div>
+                            <div class="tsp_line_time">... 20min<span class="fa fa-fw fa-rss" aria-hidden="true"></span></div>
+                            <div class="tsp_line_time">... 29min<span class="fa fa-fw fa-calendar-o" aria-hidden="true"></span></div>
                         </div>
                     </div>
                 </div>

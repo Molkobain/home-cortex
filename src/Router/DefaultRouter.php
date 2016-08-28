@@ -13,7 +13,7 @@ class DefaultRouter extends AbstractRouter {
 
     static $aRoutes = array(
         array('pattern' => '/',
-            'callback' => 'Molkobain\\HomeCortex\\Controller\\DefaultController:homeAction',
+            'callback' => 'Molkobain\\HomeCortex\\Controller\\DefaultController::homeAction',
             'bind' => 'p_home'
         ),
 //		// Example route

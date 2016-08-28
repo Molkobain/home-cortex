@@ -29,6 +29,7 @@ class ApplicationHelper {
     public static function loadAppVariables(Application $oApp) {
         $oApp['instance.base_dir'] = APP_BASE_DIR;
         $oApp['instance.base_url'] = APP_BASE_URL;
+        $oApp['instance.name'] = APP_NAME;
         $oApp['instance.version'] = APP_VERSION;
     }
 
@@ -114,16 +115,16 @@ class ApplicationHelper {
      * @param \Silex\Application $oApp
      */
     public static function registerTwigExtensions(Application $oApp) {
-        // Filters to enable base64 encode/decode
-        // Usage in twig : {{ 'String to encode'|base64_encode }}
-        $oApp['twig']->addFilter(new Twig_SimpleFilter('base64_encode', 'base64_encode'));
-        $oApp['twig']->addFilter(new Twig_SimpleFilter('base64_decode', 'base64_decode'));
-        // Filters to enable json decode  (encode already exists)
-        // Usage in twig : {{ aSomeArray|json_decode }}
-        $oApp['twig']->addFilter(new Twig_SimpleFilter('json_decode', function($sJsonString, $bAssoc = false) {
-                    return json_decode($sJsonString, $bAssoc);
-                })
-        );
+//        // Filters to enable base64 encode/decode
+//        // Usage in twig : {{ 'String to encode'|base64_encode }}
+//        $oApp['twig']->addFilter(new Twig_SimpleFilter('base64_encode', 'base64_encode'));
+//        $oApp['twig']->addFilter(new Twig_SimpleFilter('base64_decode', 'base64_decode'));
+//        // Filters to enable json decode  (encode already exists)
+//        // Usage in twig : {{ aSomeArray|json_decode }}
+//        $oApp['twig']->addFilter(new Twig_SimpleFilter('json_decode', function($sJsonString, $bAssoc = false) {
+//                    return json_decode($sJsonString, $bAssoc);
+//                })
+//        );
     }
 
     /**

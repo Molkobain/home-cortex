@@ -4,16 +4,15 @@
 //
 // lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+
 // Initialize app
 require_once __DIR__ . '/../app/bootstrap.php';
-
 // Silex framework and components
-require_once APP_BASE_DIR . 'vendor/autoload.php';
+require_once APP_BASE_DIR . 'vendor/autoload.php'
+;
+
 // Application
 use \Molkobain\HomeCortex\Helper\ApplicationHelper;
-
-// Checking if debug param is on
-$bDebug = (isset($_REQUEST['debug']) && ($_REQUEST['debug'] === 'true') );
 
 // Initializing Silex framework
 $oApp = new Silex\Application();
@@ -25,7 +24,7 @@ $oApp->register(new Silex\Provider\TwigServiceProvider(), array(
 $oApp->register(new Silex\Provider\HttpFragmentServiceProvider());
 
 // Configuring Silex application
-$oApp['debug'] = $bDebug;
+$oApp['debug'] = (isset($_REQUEST['debug']) && ($_REQUEST['debug'] === 'true') );
 
 // Registering error/exception handler in order to transform php error to exception
 //ApplicationHelper::RegisterExceptionHandler($oApp);

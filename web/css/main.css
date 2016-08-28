@@ -24,6 +24,9 @@ body{
 #weather_icon{
 
 }
+#weather_desc{
+    font-size: 15px;
+}
 
 #time_widget{
     position: absolute;
@@ -79,4 +82,8 @@ body{
 }
 .tsp_line .tsp_line_content .tsp_line_time:nth-child(1){
     color: #FFF;
+}
+.tsp_line .tsp_line_content .tsp_line_time > span{
+    width: 20px;
+    font-size: 10px;
 }
