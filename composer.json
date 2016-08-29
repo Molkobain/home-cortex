@@ -1,7 +1,10 @@
 {
     "require": {
         "silex/silex": "~2.0",
-        "twig/twig": "1.8.2"
+        "twig/twig": "1.8.2",
+        "symfony/yaml": "^3.1",
+        "doctrine/dbal": "^2.5",
+        "juuuuuu/yaml-config-service-provider": "@dev"
     },
     "autoload": {
         "psr-4": {

@@ -17,9 +17,9 @@ class DefaultController extends AbstractController {
         $aData = array();
 
         // Home page template
-        $template = 'layout.html.twig';
+        $sTemplate = 'layout.html.twig';
 
-        return $oApp['twig']->render($template, $aData);
+        return $oApp['twig']->render($sTemplate, $aData);
     }
 
 }

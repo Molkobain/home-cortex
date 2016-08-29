@@ -57,21 +57,24 @@ body{
 }
 .tsp_line .tsp_line_logo{
     float: left;
-    margin-top: 5px;
-    padding: 3px;
-    font-size: 16px;
+    margin-top: 7px;
+    width: 25px;
+    height: 25px;
+    line-height: 26px;
+    font-size: 15px;
     font-weight: 700;
+    text-align: center;
     border-radius: 25px;
 }
 .tsp_line .tsp_line_header .tsp_line_title{
-    font-size: 18px;
+    font-size: 17px;
 }
 .tsp_line .tsp_line_header .tsp_line_direction{
     font-size: 12px;
     font-style: italic;
 }
 .tsp_line .tsp_line_content .tsp_line_time{
-    font-size: 16px;
+    font-size: 15px;
     color: #999;
 }
 .tsp_line .tsp_line_content .tsp_line_time:nth-child(3){

@@ -18,10 +18,14 @@ use \Molkobain\HomeCortex\Helper\ApplicationHelper;
 $oApp = new Silex\Application();
 
 // Registring optional silex components
+// - TWIG
 $oApp->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => APP_BASE_DIR . 'src/View/'
 ));
+// - HTTP Fragment
 $oApp->register(new Silex\Provider\HttpFragmentServiceProvider());
+// - YAML Config
+$oApp->register(new Juuuuuu\Silex\YamlConfigServiceProvider(APP_BASE_DIR . 'app/config/config.yml'));
 
 // Configuring Silex application
 $oApp['debug'] = (isset($_REQUEST['debug']) && ($_REQUEST['debug'] === 'true') );

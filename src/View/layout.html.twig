@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block pPageTitle %}{% if sPageTitle is defined and sPageTitle is not null %}{{ sPageTitle }}{% else %}{{ app['instance.name'] }}{% endif %}{% endblock %}</title>
+        <title>{% block pPageTitle %}{% if sPageTitle is defined and sPageTitle is not null %}{{ sPageTitle }}{% else %}{{ app.parameters.name }}{% endif %}{% endblock %}</title>
 
         {% block pMetaTags %}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

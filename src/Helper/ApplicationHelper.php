@@ -29,7 +29,6 @@ class ApplicationHelper {
     public static function loadAppVariables(Application $oApp) {
         $oApp['instance.base_dir'] = APP_BASE_DIR;
         $oApp['instance.base_url'] = APP_BASE_URL;
-        $oApp['instance.name'] = APP_NAME;
         $oApp['instance.version'] = APP_VERSION;
     }
 

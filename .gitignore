@@ -1,3 +1,4 @@
 /.git
 /nbproject
 /composer.lock
+/app/config/config.yml
