@@ -14,15 +14,15 @@ class TransportRouter extends AbstractRouter {
     static $aRoutes = array(
         array('pattern' => '/transport/favorites',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\TransportController::showFavoritesAction',
-            'transport_favorites'
+            'bind' => 'transport_favorites'
         ),
         array('pattern' => '/transport/nearby',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\TransportController::showNearbyAction',
-            'transport_nearby'
+            'bind' => 'transport_nearby'
         ),
         array('pattern' => '/transport/search',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\TransportController::searchAction',
-            'transport_search'
+            'bind' => 'transport_search'
         )
 //        // We don't set asserts for sBrowseMode on that route, as it the generic one, it can be extended by another brick.
 //        array('pattern' => '/browse/{sBrickId}',

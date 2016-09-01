@@ -12,7 +12,7 @@ require_once APP_BASE_DIR . 'vendor/autoload.php'
 ;
 
 // Application
-use \Molkobain\HomeCortex\Helper\ApplicationHelper;
+use Molkobain\HomeCortex\Helper\ApplicationHelper;
 
 // Initializing Silex framework
 $oApp = new Silex\Application();
@@ -31,7 +31,7 @@ $oApp->register(new Juuuuuu\Silex\YamlConfigServiceProvider(APP_BASE_DIR . 'app/
 $oApp['debug'] = (isset($_REQUEST['debug']) && ($_REQUEST['debug'] === 'true') );
 
 // Registering error/exception handler in order to transform php error to exception
-//ApplicationHelper::RegisterExceptionHandler($oApp);
+ApplicationHelper::RegisterExceptionHandler($oApp);
 // Preparing portal foundations (Can't use Silex autoload through composer as we don't follow PSR conventions -filenames, functions-)
 ApplicationHelper::loadAppVariables($oApp);
 ApplicationHelper::loadRouters();

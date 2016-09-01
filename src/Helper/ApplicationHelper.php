@@ -27,9 +27,34 @@ class ApplicationHelper {
      * @param \Silex\Application $oApp
      */
     public static function loadAppVariables(Application $oApp) {
+        // Global variables
         $oApp['instance.base_dir'] = APP_BASE_DIR;
         $oApp['instance.base_url'] = APP_BASE_URL;
         $oApp['instance.version'] = APP_VERSION;
+
+        // Timezone
+        $sTimezone = 'UTC';
+        try {
+            $sConfigTimezone = $oApp['parameters']['date']['timezone'];
+            if ($sConfigTimezone !== null && $sConfigTimezone !== '') {
+                $sTimezone = $sConfigTimezone;
+            }
+        } catch (Exception $e) {
+            // Do nothing, it is already set to the default value
+        }
+        ini_set('date.timezone', $sTimezone);
+
+        // Locale
+        $sLocale = 'en_EN';
+        try {
+            $sConfigLocale = $oApp['parameters']['locale'];
+            if ($sConfigLocale !== null && $sConfigLocale !== '') {
+                $sLocale = $sConfigLocale;
+            }
+        } catch (Exception $e) {
+            // Do nothing, it is already set to the default value
+        }
+        setlocale(LC_TIME, $sLocale);
     }
 
     /**

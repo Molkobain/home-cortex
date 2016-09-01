@@ -4,29 +4,29 @@
         <title>{% block pPageTitle %}{% if sPageTitle is defined and sPageTitle is not null %}{{ sPageTitle }}{% else %}{{ app.parameters.name }}{% endif %}{% endblock %}</title>
 
         {% block pMetaTags %}
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% endblock %}
 
         {% block pStyleSheets %}
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet" />
             {# Bootstrap #}
-        <link href="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/css/bootstrap.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
-        <link href="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            <link href="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/css/bootstrap.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            <link href="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/css/bootstrap-theme.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
             {# FontAwesome #}
-        <link href="{{ app['instance.base_url']}}/lib/font-awesome-4.6.3/css/font-awesome.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            <link href="{{ app['instance.base_url']}}/lib/font-awesome-4.6.3/css/font-awesome.min.css?v={{ app['instance.version'] }}" rel="stylesheet" />
             {# Application #}
-        <link href="{{ app['instance.base_url']}}/css/main.css?v={{ app['instance.version'] }}" rel="stylesheet" />
+            <link href="{{ app['instance.base_url']}}/css/main.css?v={{ app['instance.version'] }}" rel="stylesheet" />
         {% endblock %}
 
         {% block pScripts %}
-        <script type="text/javascript" src="{{ app['instance.base_url']}}/lib/jquery-3.1.0/jquery-3.1.0.min.js?v={{ app['instance.version'] }}"></script>
-        <script type="text/javascript" src="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/js/bootstrap.min.js?v={{ app['instance.version'] }}"></script>
+            <script type="text/javascript" src="{{ app['instance.base_url']}}/lib/jquery-3.1.0/jquery-3.1.0.min.js?v={{ app['instance.version'] }}"></script>
+            <script type="text/javascript" src="{{ app['instance.base_url']}}/lib/bootstrap-3.3.7/js/bootstrap.min.js?v={{ app['instance.version'] }}"></script>
         {% endblock %}
     </head>
     <body>
-        <div id="weather_widget" class="widget effect_opacity">
+        <div id="weather_widget" class="widget">
             <div id="weather_temp">31°</div>
             <div id="weather_icon"></div>
             <div id="weather_desc">Soleil toute la journée</div>
@@ -34,33 +34,69 @@
                 <span class="umbrella_icon"></span>
             </div>
         </div>
-        <div id="time_widget" class="widget effect_opacity">
-            <div id="time_time">07:56</div>
-            <div id="time_date">Samedi 27 août</div>
-        </div>
-        <div id="transport_widget" class="widget effect_opacity">
-            <div class="tsp_lines">
-                <div class="tsp_line" data-id="SEM:C3:1">
-                    <div class="tsp_line_header">
-                        <div class="tsp_line_logo" style="background-color: yellow; color: black;">C3</div>
-                        <div class="tsp_line_title">
-                            <div class="tsp_line_stop">Championnet</div>
-                            <div class="tsp_line_direction">Dir. Victor Hugo</div>
-                        </div>
-                    </div>
-                    <div class="tsp_line_content">
-                        <div class="tsp_line_times">
-                            <div class="tsp_line_time">Prochain dans 2min<span class="fa fa-fw fa-rss" aria-hidden="true"></span></div>
-                            <div class="tsp_line_time">Suivant dans 11min<span class="fa fa-fw fa-rss" aria-hidden="true"></span></div>
-                            <div class="tsp_line_time">... 20min<span class="fa fa-fw fa-rss" aria-hidden="true"></span></div>
-                            <div class="tsp_line_time">... 29min<span class="fa fa-fw fa-calendar-o" aria-hidden="true"></span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="calendar_widget" class="widget effect_opacity">
 
+        <div id="clock_widget">
+            {% include 'clock/widget.html.twig' %}
         </div>
-        </body>
-    </html>
+
+        <div id="transport_widget">
+        </div>
+
+        <div id="calendar_widget" class="widget">
+        </div>
+
+        <script type="text/javascript">
+            /**
+             * Update a widget content with some visual effects
+             *
+             * @param mixed target Can be either a selector or a jQuery element
+             * @param mixed callback Can be either a function name or an anonymous function
+             * @param integer iDuration
+             * @returns boolean
+             */
+            var updateWidget = function(target, callback, iDuration) {
+                var oTarget = null;
+                var oCallback = null;
+
+                // Checking target value
+                if ($.type(target) === "string") {
+                    oTarget = $(target);
+                } else if ($.type(target) === "object") {
+                    oTarget = target;
+                } else {
+                    console.log('updateWidget : Could not analyse target.', target);
+                    return false;
+                }
+
+                // Checking callback value
+                if ($.type(callback) === "string") {
+                    oCallback = window[callback];
+                } else if ($.type(callback) === "function") {
+                    oCallback = callback;
+                } else {
+                    console.log('updateWidget : Could not analyse callback.', callback);
+                    return false;
+                }
+
+                // Checking duration value
+                if (iDuration === undefined || iDuration === null) {
+                    iDuration = 1500;
+                }
+
+                // Updating widget
+                oTarget.fadeOut(iDuration, function() {
+                    oCallback();
+                    oTarget.fadeIn(iDuration);
+                });
+
+                return true;
+            };
+
+            $(document).ready(function() {
+                // Loading widgets
+                // - Transport
+                $('#transport_widget').load('{{ app['url_generator'].generate('transport_favorites') }}');
+            });
+        </script>
+    </body>
+</html>

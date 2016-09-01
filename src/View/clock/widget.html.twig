@@ -1,0 +1,53 @@
+<div class="widget">
+    <div id="clock_time"></div>
+    <div id="clock_date">{{ 'now'|date('l j') }} {{ 'now'|date('F')|lower }}</div>
+</div>
+
+<script type="text/javascript">
+    // Pad left with a '0'
+    var formatTimePart = function(iNumber) {
+        if (iNumber < 10) {
+            iNumber = '0' + iNumber;
+        }
+
+        return iNumber;
+    };
+
+    var updateClock = function(sDate, sTime) {
+        $('#clock_date').text(sDate);
+        $('#clock_time').text(sTime);
+
+        return true;
+    };
+
+    var startClock = function() {
+        var oToday = new Date();
+        var sHours = formatTimePart(oToday.getHours());
+        var sMinutes = formatTimePart(oToday.getMinutes());
+        var sDay = oToday.getDay();
+
+        var sPrevTime = $('#clock_time').text();
+        var sNewTime = sHours + ':' + sMinutes;
+        var sNewDate = $('#clock_date').text(); // TODO : Need to fix this
+
+        if (sPrevTime === '') {
+            updateClock(sNewDate, sNewTime);
+        }
+        else if (sPrevTime !== sNewTime)
+        {
+            updateWidget(
+                    $('#clock_time').parent(),
+                    function() {
+                        updateClock(sNewDate, sNewTime);
+                    }
+            );
+        }
+
+        // Update the widget every 2s
+        setTimeout(startClock, 2000);
+    };
+
+    $(document).ready(function() {
+        startClock();
+    });
+</script>

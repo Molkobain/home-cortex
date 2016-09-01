@@ -1,0 +1,68 @@
+{% extends 'transport/widget.html.twig' %}
+
+{% block pTransportWidgetContent %}{% spaceless %}
+    <div id="tsp_favorites" class="tsp_lines">
+        {% if aStopTimes|length > 1 %}
+            NEED TO MAKE DISPLAY FOR MORE THAN 1 STOP.
+        {% else %}
+            {% for aStop in aStopTimes %}
+                <div class="tsp_line" data-stop-id="{{ aStop.stop.id }}" data-route-id="{{ aStop.route.id }}">
+                    <div class="tsp_line_header">
+                        <div class="tsp_line_logo" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
+                        <div class="tsp_line_title">
+                            <div class="tsp_line_stop">Championnet</div>
+                            <div class="tsp_line_direction">Dir. {{ aStop.direction }}</div>
+                        </div>
+                    </div>
+                    <div class="tsp_line_content">
+                        <div class="tsp_line_times">
+                            {% for aTime in aStop.departures %}
+                                <div class="tsp_line_time" data-timestamp="{{ aTime.timestamp }}" data-datetime="{{ aTime.datetime|date('Y-m-d H:i:s') }}">
+                                    {% if loop.index == 1 %}
+                                        Prochain dans
+                                    {% elseif loop.index == 2 %}
+                                        Suivant dans
+                                    {% else %}
+                                        ...
+                                    {% endif %}
+                                    {{ aTime.interval }}
+                                    <span class="fa fa-fw {% if aTime.realtime == true %}fa-rss{% else %}fa-calendar-o{% endif %}" aria-hidden="true"></span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>{% endspaceless %}
+{% endblock %}
+
+{% block pTransportWidgetScript %}
+    <script type="text/javascript">
+        var updateTransport = function() {
+            // Update the transport widget every 5s
+            updateWidget(
+                '#transport_widget',
+                function() {
+                    $.ajax({
+                        url: '{{ app['url_generator'].generate('transport_favorites') }}',
+                        context: $('#transport_widget'),
+                        dataType: 'html'
+                    })
+                    .done(function(oData, sStatus, oXHR) {
+                        // Replacing widget content
+                        $(this).html(oData);
+                    })
+                    .fail(function(oXHR, sStatus, sError) {
+                        alert('Error while refreshing transport widget : ' + sError);
+                    });
+                }
+            );
+        };
+
+        $(document).ready(function() {
+            // Update the widget every 20s (Will be called again when the ajax loads this HTML on .done())
+            setTimeout(updateTransport, 20000);
+        });
+    </script>
+{% endblock %}

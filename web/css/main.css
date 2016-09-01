@@ -28,17 +28,17 @@ body{
     font-size: 15px;
 }
 
-#time_widget{
+#clock_widget{
     position: absolute;
     top: 40px;
     left:50px;
     text-align: left;
 }
-#time_time{
+#clock_time{
     font-size: 72px;
     /*font-size: 4.5em;*/
 }
-#time_date{
+#clock_date{
     font-size: 19px;
     /*font-size: 1.2em;*/
 }
