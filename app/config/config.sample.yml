@@ -1,6 +1,16 @@
 parameters:
+  name: Application name
+  date:
+    timezone: Europe/Paris
+  locale: eng # Windows style ('en_US' otherwise)
+  localisation:
+    latitude: 45.0
+    longitude: 5.0
   database:
-    host: localhost
+    host: 192.168.1.2
     port: 3306
     user: root
     password: password
+  weather_providers:
+    openweathermap:
+      api_key: PUT_API_KEY
