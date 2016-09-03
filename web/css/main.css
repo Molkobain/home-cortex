@@ -17,12 +17,16 @@ body{
     right: 50px;
     text-align: right;
 }
+#weather_conditions:after{
+    clear: both;
+}
 #weather_temp{
     font-size: 80px;
     /*font-size: 5em;*/
 }
 #weather_icon{
-
+    height: 90px;
+    margin: 10px -10px 0px 15px;
 }
 #weather_desc{
     font-size: 15px;

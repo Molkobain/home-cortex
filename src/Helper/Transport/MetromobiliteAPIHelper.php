@@ -95,7 +95,14 @@ class MetromobiliteAPIHelper {
 
                 foreach ($aLine['times'] as $aTime) {
                     $oDatetime = DatetimeHelper::makeDatetimeFromTimestamp(($aTime['realtime'] === true) ? $aTime['realtimeDeparture'] : $aTime['scheduledDeparture'], true);
-                    $sIntervalFormat = ( abs($oDatetime->getTimestamp() - time()) >= 60 * 60 ) ? '%hh%I' : '%imin';
+                    $iSecondsToDatetime = abs($oDatetime->getTimestamp() - time());
+                    if ($iSecondsToDatetime >= 60 * 60) {
+                        $sIntervalFormat = '%hh%I';
+                    } elseif ($iSecondsToDatetime >= 60) {
+                        $sIntervalFormat = '%imin';
+                    } else {
+                        $sIntervalFormat = '<min';
+                    }
 
                     $aLineTimes['times'][] = array(
                         'departure' => array(

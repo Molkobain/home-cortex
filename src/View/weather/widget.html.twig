@@ -1,0 +1,10 @@
+<div class="widget">
+    <div id="weather_conditions" class="clearfix">
+        <span id="weather_temp">{{ forecast.temperatures.current }}°</span>
+        <img id="weather_icon" class="pull-right" src="{{ app['instance.base_url'] }}img/google-weather/{{ forecast.conditions.icon }}-128.png" />
+    </div>
+    <div id="weather_desc">{{ forecast.conditions.description }}</div>
+    <div id="weather_rain_prob">
+        <span class="umbrella_icon"></span>
+    </div>
+</div>

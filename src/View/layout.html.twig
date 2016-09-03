@@ -26,17 +26,10 @@
         {% endblock %}
     </head>
     <body>
-        <div id="weather_widget" class="widget">
-            <div id="weather_temp">31°</div>
-            <div id="weather_icon"></div>
-            <div id="weather_desc">Soleil toute la journée</div>
-            <div id="weather_rain_prob">
-                <span class="umbrella_icon"></span>
-            </div>
+        <div id="weather_widget">
         </div>
 
         <div id="clock_widget">
-            {% include 'clock/widget.html.twig' %}
         </div>
 
         <div id="transport_widget">
@@ -94,6 +87,10 @@
 
             $(document).ready(function() {
                 // Loading widgets
+                // - Weather
+                $('#weather_widget').load('{{ app['url_generator'].generate('weather_forecast_today') }}');
+                // - Clock
+                $('#clock_widget').load('{{ app['url_generator'].generate('clock_show') }}');
                 // - Transport
                 $('#transport_widget').load('{{ app['url_generator'].generate('transport_favorites') }}');
             });

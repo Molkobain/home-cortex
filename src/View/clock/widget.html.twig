@@ -1,6 +1,6 @@
 <div class="widget">
-    <div id="clock_time"></div>
-    <div id="clock_date">{{ 'now'|date('l j') }} {{ 'now'|date('F')|lower }}</div>
+    <div id="clock_time">{{ datetime.time }}</div>
+    <div id="clock_date">{{ datetime.date }}</div>
 </div>
 
 <script type="text/javascript">

@@ -12,6 +12,7 @@ use Silex\Application;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
 use Twig_SimpleFilter;
+use Molkobain\HomeCortex\Helper\Weather\OpenWeatherMapAPIHelper;
 
 /**
  * Contains static methods to help loading / registering classes of the application.
@@ -52,7 +53,8 @@ class ApplicationHelper {
                 $sLocale = $sConfigLocale;
             }
         } catch (Exception $e) {
-            // Do nothing, it is already set to the default value
+            // Keep the default value and put it to the parameters
+            $oApp['parameters']['locale'] = $sLocale;
         }
         setlocale(LC_TIME, $sLocale);
     }
@@ -189,6 +191,24 @@ class ApplicationHelper {
 
                         return $oResponse;
                     });
+        }
+    }
+
+    public static function registerWeatherApi(Application $oApp) {
+        // OpenWeatherMap
+        try {
+            // - Api key
+            $sOWMApiKey = $oApp['parameters']['weather_providers']['openweathermap']['api_key'];
+            OpenWeatherMapAPIHelper::setApiKey($sOWMApiKey);
+            // - Locale
+            $aLocaleExploded = explode('_', $oApp['parameters']['locale']);
+            $sOWMLocale = (isset($aLocaleExploded[0])) ? $aLocaleExploded[0] : 'en';
+            $sOWMLocale = substr($sOWMLocale, 0, 2);
+            OpenWeatherMapAPIHelper::setLocale($sOWMLocale);
+            // - Units
+            OpenWeatherMapAPIHelper::setUnits('metric');
+        } catch (Exception $e) {
+            // Do nothing
         }
     }
 
