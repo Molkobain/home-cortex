@@ -10,7 +10,7 @@ namespace Molkobain\HomeCortex\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Molkobain\HomeCortex\Controller\AbstractController;
-use Molkobain\HomeCortex\Helper\Weather\OpenWeatherMapAPIHelper;
+use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 
 class WeatherController extends AbstractController {
 
@@ -20,7 +20,8 @@ class WeatherController extends AbstractController {
         );
 
         $aCoordinates = array('latitude' => $oApp['parameters']['localisation']['latitude'], 'longitude' => $oApp['parameters']['localisation']['longitude']);
-        $aResult = OpenWeatherMapAPIHelper::getToday(OpenWeatherMapAPIHelper::ENUM_SEARCH_MODE_COORDINATES, $aCoordinates);
+        //$aResult = OpenWeatherMapAPIHelper::getToday($aCoordinates, OpenWeatherMapAPIHelper::ENUM_SEARCH_MODE_COORDINATES);
+        $aResult = WeatherUndergroundAPIHelper::getToday($aCoordinates, WeatherUndergroundAPIHelper::ENUM_SEARCH_MODE_COORDINATES);
 
         // Preparing response data
         $aData['forecast'] = $aResult;

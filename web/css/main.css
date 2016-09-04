@@ -11,11 +11,31 @@ body{
     transition-property: opacity;
 }
 
-#weather_widget{
-    position: absolute;
-    top: 40px;
-    right: 50px;
+.left_column{
+    text-align: left;
+}
+.right_column{
     text-align: right;
+}
+
+.widgets_container{
+
+}
+.widgets_container .widget_container:first-child{
+    margin-top: 20px;
+}
+.widgets_container .widget_container{
+    margin-top: 140px;
+}
+.widgets_container.left_column .widget{
+    margin-left: 20px;
+}
+.widgets_container.right_column .widget{
+    margin-right: 20px;
+}
+
+#weather_widget{
+
 }
 #weather_conditions:after{
     clear: both;
@@ -33,35 +53,26 @@ body{
 }
 
 #clock_widget{
-    position: absolute;
-    top: 40px;
-    left:50px;
-    text-align: left;
+
 }
 #clock_time{
     font-size: 72px;
-    /*font-size: 4.5em;*/
 }
 #clock_date{
     font-size: 19px;
-    /*font-size: 1.2em;*/
 }
 
 #transport_widget{
-    position:absolute;
-    top: 280px;
-    right: 50px;
-    text-align: right;
+
 }
 .tsp_line .tsp_line_header{
+    position: relative;
     margin-bottom: 8px;
 }
-.tsp_line .tsp_line_header:after{
-    clear: both;
-}
 .tsp_line .tsp_line_logo{
-    float: left;
-    margin-top: 7px;
+    position: absolute;
+    top: 7px;
+    right: 140px;
     width: 25px;
     height: 25px;
     line-height: 26px;

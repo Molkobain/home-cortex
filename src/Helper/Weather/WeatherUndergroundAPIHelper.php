@@ -15,76 +15,77 @@ use Exception;
  *
  * More informations on http://www.metromobilite.fr/pages/opendata/OpenDataApi.html
  */
-class OpenWeatherMapAPIHelper {
+class WeatherUndergroundAPIHelper {
 
     const ENUM_SEARCH_MODE_NAME = 1;
     const ENUM_SEARCH_MODE_COORDINATES = 2;
-    const ENUM_UNITS_METRIC = 'metric';
-    const ENUM_UNITS_IMPERIAL = 'imperial';
+//    const ENUM_UNITS_METRIC = 'metric';
+//    const ENUM_UNITS_IMPERIAL = 'imperial';
     const DEFAULT_SEARCH_MODE = self::ENUM_SEARCH_MODE_NAME;
-    const DEFAULT_LOCALE = 'en';
-    const DEFAULT_UNITS = 'metrics';
+    const DEFAULT_LOCALE = 'EN';
+//    const DEFAULT_UNITS = 'metrics';
 
-    public static $sBaseUrl = 'http://api.openweathermap.org/data/2.5/';
+    public static $sBaseUrl = 'http://api.wunderground.com/api/{sApiKey}/lang:{sLocale}/';
     public static $aUrls = array(
-        'today' => 'weather'
+        'today' => 'conditions/'
     );
 
     public static $sApiKey = null;
     public static $sLocale = self::DEFAULT_LOCALE;
-    public static $sUnits = self::DEFAULT_UNITS;
+//    public static $sUnits = self::DEFAULT_UNITS;
 
     public static function setApiKey($sApiKey) {
         static::$sApiKey = $sApiKey;
     }
 
     public static function setLocale($sLocale) {
-        static::$sLocale = $sLocale;
+        $aLocaleExploded = explode('_', $sLocale);
+        $sWULocale = (isset($aLocaleExploded[0])) ? $aLocaleExploded[0] : $sLocale;
+        $sWULocale = ($sWULocale !== null) ? $sWULocale : static::DEFAULT_LOCALE;
+        $sWULocale = strtoupper(substr($sWULocale, 0, 2));
+        static::$sLocale = $sWULocale;
     }
 
-    public static function setUnits($sUnits) {
-        static::$sUnits = $sUnits;
-    }
+//    public static function setUnits($sUnits) {
+//        static::$sUnits = $sUnits;
+//    }
 
     /**
      * Returns weather conditions for today in the city defined by $value
      *
-     * @param mixed $value City to get conditions for, can be either an array of latitude/longitude or the city's name
+     * @param mixed $value City to get conditions for, can be either an array of latitude/longitude or country/city
      * @return array
      */
     public static function getToday($value, $sMode = self::DEFAULT_SEARCH_MODE) {
         // Parsing parameters
         if ($sMode === static::ENUM_SEARCH_MODE_NAME) {
-            $sSearchParam = 'q=' . $value;
+            if (!is_array($value) || !array_key_exists('country', $value) || !array_key_exists('city', $value)) {
+                throw new Exception('WeatherAPI : search city are not a valid array. Given : ' . $value);
+            }
+            $sSearchParam = 'q/' . $value['country'] . '/' . $value['city'];
         } elseif ($sMode === static::ENUM_SEARCH_MODE_COORDINATES) {
             if (!is_array($value) || !array_key_exists('latitude', $value) || !array_key_exists('longitude', $value)) {
                 throw new Exception('WeatherAPI : search coordinates are not a valid array. Given : ' . $value);
             }
-            $sSearchParam = 'lat=' . $value['latitude'] . '&lon=' . $value['longitude'];
+            $sSearchParam = 'q/' . $value['latitude'] . ',' . $value['longitude'];
         } else {
             throw new Exception('WeatherAPI : search mode could not be recognized. Given : ' . $sMode);
         }
 
         // Retrieving data
-        $sUrl = static::getUrl('today');
-        // - Adding them to url
-        if (strpos($sUrl, '?') === false) {
-            $sUrl .= '?' . $sSearchParam;
-        } else {
-            $sUrl .= '&' . $sSearchParam;
-        }
+        $sUrl = static::getUrl('today') . $sSearchParam . '.json';
         $aResult = static::doRemoteCall($sUrl);
-
+        
         // Parsing data
         $aForecast = array(
             'temperatures' => array(
-                'current' => round($aResult['main']['temp']),
-                'min' => round($aResult['main']['temp_min']),
-                'max' => round($aResult['main']['temp_max'])
+                'current' => round($aResult['current_observation']['temp_c']),
+                'min' => round($aResult['current_observation']['temp_c']),
+                'max' => round($aResult['current_observation']['temp_c'])
             ),
             'conditions' => array(
-                'description' => ucfirst($aResult['weather'][0]['description']),
-                'icon' => static::findIconFromCode($aResult['weather'][0]['icon'])
+                'description' => ucfirst($aResult['current_observation']['weather']),
+                'icon' => static::findIconFromCode($aResult['current_observation']['icon'])
             )
         );
 
@@ -100,9 +101,9 @@ class OpenWeatherMapAPIHelper {
     private static function findIconFromCode($sCode) {
         // TODO : Find night icons
         $aIconsMap = array(
-            '01d' => 'sunny',
+            'clear' => 'sunny',
             '02d' => 'sunny_s_cloudy',
-            '03d' => 'partly_cloudy',
+            'partlycloudy' => 'partly_cloudy',
             '04d' => 'cloudy',
             '09d' => 'rain_light', // Note : This might be changed for 'rain' when we have found the lightning icon
             '10d' => 'sunny_s_rain',
@@ -121,7 +122,7 @@ class OpenWeatherMapAPIHelper {
         );
 
         if (!array_key_exists($sCode, $aIconsMap)) {
-            throw new Exception('OpenWeatherMapAPI : Could not find a matching icon for "' . $sCode . '"');
+            throw new Exception('WeatherUndergroundAPI : Could not find a matching icon for "' . $sCode . '"');
         }
 
         return $aIconsMap[$sCode];
@@ -136,14 +137,9 @@ class OpenWeatherMapAPIHelper {
     private static function doRemoteCall($sUrl) {
         // Making URL
         // - Preparing common parameters
-        $sUrlParams = 'appid=' . static::$sApiKey . '&lang=' . static::$sLocale . '&units=' . static::$sUnits;
-        // - Adding them to url
-        if (strpos($sUrl, '?') === false) {
-            $sUrl .= '?' . $sUrlParams;
-        } else {
-            $sUrl .= '&' . $sUrlParams;
-        }
-        
+        $sUrl = str_replace('{sApiKey}', static::$sApiKey, $sUrl);
+        $sUrl = str_replace('{sLocale}', static::$sLocale, $sUrl);
+
         // Initiating curl
         $oCh = curl_init();
         // Disabling SSL verification

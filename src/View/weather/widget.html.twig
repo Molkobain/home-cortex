@@ -8,3 +8,31 @@
         <span class="umbrella_icon"></span>
     </div>
 </div>
+
+<script type="text/javascript">
+    var updateWeather = function() {
+        // Update the transport widget every 5s
+        updateWidget(
+            '#weather_widget',
+            function() {
+                $.ajax({
+                    url: '{{ app['url_generator'].generate('weather_forecast_today') }}',
+                    context: $('#weather_widget'),
+                    dataType: 'html'
+                })
+                .done(function(oData, sStatus, oXHR) {
+                    // Replacing widget content
+                    $(this).html(oData);
+                })
+                .fail(function(oXHR, sStatus, sError) {
+                    alert('Error while refreshing weather widget : ' + sError);
+                });
+            }
+        );
+    };
+
+    $(document).ready(function() {
+        // Update the widget every 2min (Will be called again when the ajax loads this HTML on .done())
+        setTimeout(updateWeather, 120000);
+    });
+</script>

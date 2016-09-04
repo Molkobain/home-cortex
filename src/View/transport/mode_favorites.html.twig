@@ -16,7 +16,7 @@
                     </div>
                     <div class="tsp_line_content">
                         <div class="tsp_line_times">
-                            {% for aTime in aStop.departures %}
+                            {% for aTime in aStop.departures if loop.index <= 3 %}
                                 <div class="tsp_line_time" data-timestamp="{{ aTime.timestamp }}" data-datetime="{{ aTime.datetime|date('Y-m-d H:i:s') }}">
                                     {% if loop.index == 1 %}
                                         Prochain dans
@@ -26,7 +26,7 @@
                                         ...
                                     {% endif %}
                                     {{ aTime.interval }}
-                                    <span class="fa fa-fw {% if aTime.realtime == true %}fa-rss{% else %}fa-calendar-o{% endif %}" aria-hidden="true"></span>
+                                    <span class="fa fa-fw {% if aTime.realtime == true %}fa-rss{% else %}fa-clock-o{% endif %}" aria-hidden="true"></span>
                                 </div>
                             {% endfor %}
                         </div>
@@ -62,7 +62,7 @@
 
         $(document).ready(function() {
             // Update the widget every 20s (Will be called again when the ajax loads this HTML on .done())
-            setTimeout(updateTransport, 20000);
+            //setTimeout(updateTransport, 20000);
         });
     </script>
 {% endblock %}

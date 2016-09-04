@@ -9,6 +9,7 @@ namespace Molkobain\HomeCortex\Helper\Transport;
 
 use DateTime;
 use Molkobain\HomeCortex\Helper\DatetimeHelper;
+use Molkobain\HomeCortex\Helper\StringHelper;
 
 /**
  * MetromibiliteAPIHelper is based on http://www.metromobilite.fr APIs
@@ -89,10 +90,10 @@ class MetromobiliteAPIHelper {
             foreach ($aResult as $aLine) {
                 $aLineTimes = array(
                     'direction' => $aLine['pattern']['dir'],
-                    'description' => $aLine['pattern']['desc'],
+                    'description' => StringHelper::toCamelCase($aLine['pattern']['desc'], false),
                     'times' => array()
                 );
-
+                
                 foreach ($aLine['times'] as $aTime) {
                     $oDatetime = DatetimeHelper::makeDatetimeFromTimestamp(($aTime['realtime'] === true) ? $aTime['realtimeDeparture'] : $aTime['scheduledDeparture'], true);
                     $iSecondsToDatetime = abs($oDatetime->getTimestamp() - time());
@@ -101,7 +102,7 @@ class MetromobiliteAPIHelper {
                     } elseif ($iSecondsToDatetime >= 60) {
                         $sIntervalFormat = '%imin';
                     } else {
-                        $sIntervalFormat = '<min';
+                        $sIntervalFormat = '<1min';
                     }
 
                     $aLineTimes['times'][] = array(

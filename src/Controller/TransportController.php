@@ -21,10 +21,17 @@ class TransportController extends AbstractController {
             'SEM:0750' => array(
                 'rank' => 1,
                 'routes' => array('SEM:C3')
-            )
+            ),
+//            'SEM:0754' => array(
+//                'rank' => 2,
+//                'routes' => array('SEM:C4')
+//            )
         );
-
-
+        // - Sorting stops by rank
+        uasort($aRequestedStops, function($a, $b) {
+                    return $a['rank'] > $b['rank'];
+        });
+        
         // Parsing stop and route ids
         $aStopIds = array();
         $aRouteIds = array();

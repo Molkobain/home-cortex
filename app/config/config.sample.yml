@@ -13,4 +13,10 @@ parameters:
     password: password
   weather_providers:
     openweathermap:
-      api_key: PUT_API_KEY
+      api_key: PUT_YOUR_API_KEY
+    weatherunderground:
+      api_key: PUT_YOUR_API_KEY
+  music_providers:
+    deezer:
+      app_id: PUT_YOUR_APP_ID
+      secret_key: PUT_YOUR_APP_SECRET
