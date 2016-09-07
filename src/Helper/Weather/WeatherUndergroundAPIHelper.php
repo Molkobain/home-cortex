@@ -104,7 +104,7 @@ class WeatherUndergroundAPIHelper {
             'clear' => 'sunny',
             '02d' => 'sunny_s_cloudy',
             'partlycloudy' => 'partly_cloudy',
-            '04d' => 'cloudy',
+            'cloudy' => 'cloudy',
             '09d' => 'rain_light', // Note : This might be changed for 'rain' when we have found the lightning icon
             '10d' => 'sunny_s_rain',
             '11d' => 'rain',

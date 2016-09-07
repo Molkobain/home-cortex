@@ -3,7 +3,46 @@
 {% block pTransportWidgetContent %}{% spaceless %}
     <div id="tsp_favorites" class="tsp_lines">
         {% if aStopTimes|length > 1 %}
-            NEED TO MAKE DISPLAY FOR MORE THAN 1 STOP.
+            {% set sCurrentRouteId = null %}
+
+            {% for aStop in aStopTimes %}
+                {# Closing previous line div #}
+                {% if aStop.route.id != sCurrentRouteId and sCurrentRouteId != null %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if aStop.route.id != sCurrentRouteId %}
+                    <div class="tsp_line tsp_line_compact" data-route-id="{{ aStop.route.id }}">
+                        <div class="tsp_line_header">
+                            <div class="tsp_line_logo" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
+                            <div class="tsp_line_title">
+                                <div class="tsp_line_stop">Championnet</div>
+                            </div>
+                        </div>
+                        <div class="tsp_line_content">
+                {% endif %}
+                            <div class="tsp_line_stop">
+                                <div class="tsp_line_direction">{{ aStop.direction }}</div>
+                                <div class="tsp_line_times">
+                                    {% for aTime in aStop.departures if loop.index <= 2 %}
+                                        <div class="tsp_line_time" data-timestamp="{{ aTime.timestamp }}" data-datetime="{{ aTime.datetime|date('Y-m-d H:i:s') }}">
+                                            {{ aTime.interval }}
+                                            {% if aTime.realtime == true %}
+                                                <span class="fa fa-fw fa-rss" aria-hidden="true"></span>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                {# Closing last line div #}
+                {% if loop.last %}
+                        </div>
+                    </div>
+                {% endif %}
+            
+                {% set sCurrentRouteId = aStop.route.id %}
+            {% endfor %}
         {% else %}
             {% for aStop in aStopTimes %}
                 <div class="tsp_line" data-stop-id="{{ aStop.stop.id }}" data-route-id="{{ aStop.route.id }}">

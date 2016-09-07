@@ -18,6 +18,7 @@ body{
     text-align: right;
 }
 
+/* Widget */
 .widgets_container{
 
 }
@@ -33,16 +34,9 @@ body{
 .widgets_container.right_column .widget{
     margin-right: 20px;
 }
-
-#weather_widget{
-
-}
-#weather_conditions:after{
-    clear: both;
-}
+/* - Weather widget */
 #weather_temp{
     font-size: 80px;
-    /*font-size: 5em;*/
 }
 #weather_icon{
     height: 90px;
@@ -51,20 +45,14 @@ body{
 #weather_desc{
     font-size: 15px;
 }
-
-#clock_widget{
-
-}
+/* - Clock widget */
 #clock_time{
     font-size: 72px;
 }
 #clock_date{
     font-size: 19px;
 }
-
-#transport_widget{
-
-}
+/* - Transport widget */
 .tsp_line .tsp_line_header{
     position: relative;
     margin-bottom: 8px;
@@ -104,4 +92,38 @@ body{
 .tsp_line .tsp_line_content .tsp_line_time > span{
     width: 20px;
     font-size: 10px;
+}
+/*   - Compact lines */
+.tsp_line.tsp_line_compact{
+    margin-bottom: 10px;
+}
+.tsp_line.tsp_line_compact:last-child{
+    margin-bottom: 0px;
+}
+.tsp_line.tsp_line_compact .tsp_line_header{
+    margin-bottom: 2px;
+}
+.tsp_line.tsp_line_compact .tsp_line_logo{
+    top: 2px;
+    right: 125px;
+    width: 20px;
+    height: 20px;
+    line-height: 22px;
+    font-size: 12px;
+}
+.tsp_line.tsp_line_compact .tsp_line_content .tsp_line_time{
+    position: relative;
+    margin-right: 14px;
+    display: inline-block;
+    font-size: 12px;
+}
+.tsp_line.tsp_line_compact .tsp_line_content .tsp_line_time:last-child{
+    margin-right: 0px
+}
+.tsp_line.tsp_line_compact .tsp_line_content .tsp_line_time > span{
+    position: absolute;
+    top: 3px;
+    right: -8px;
+    width: initial;
+    font-size: 7px;
 }
