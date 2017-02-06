@@ -19,9 +19,9 @@
 
 namespace Doctrine\DBAL\Driver\SQLSrv;
 
-use PDO;
-use IteratorAggregate;
 use Doctrine\DBAL\Driver\Statement;
+use IteratorAggregate;
+use PDO;
 
 /**
  * SQL Server Statement.

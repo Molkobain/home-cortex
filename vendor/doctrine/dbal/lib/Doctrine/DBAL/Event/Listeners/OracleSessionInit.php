@@ -19,9 +19,9 @@
 
 namespace Doctrine\DBAL\Event\Listeners;
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Events;
-use Doctrine\Common\EventSubscriber;
 
 /**
  * Should be used when Oracle Server default environment does not match the Doctrine requirements.
@@ -69,7 +69,11 @@ class OracleSessionInit implements EventSubscriber
             array_change_key_case($this->_defaultSessionVars, \CASE_UPPER);
             $vars = array();
             foreach ($this->_defaultSessionVars as $option => $value) {
-                $vars[] = $option." = '".$value."'";
+                if ($option === 'CURRENT_SCHEMA') {
+                    $vars[] = $option . " = " . $value;
+                } else {
+                    $vars[] = $option . " = '" . $value . "'";
+                }
             }
             $sql = "ALTER SESSION SET ".implode(" ", $vars);
             $args->getConnection()->executeUpdate($sql);

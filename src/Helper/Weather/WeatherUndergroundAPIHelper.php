@@ -1,19 +1,21 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Helper\Weather;
 
 use Exception;
 
 /**
- * MetromibiliteAPIHelper is based on http://www.metromobilite.fr APIs
- * It allows to retrieve informations on transportation in the Grenoble, FR area
+ * WeatherUndergroundAPIHelper is based on https://www.wunderground.com/weather/api/ APIs
+ * It allows to retrieve informations on the weather around the world
  *
- * More informations on http://www.metromobilite.fr/pages/opendata/OpenDataApi.html
+ * More informations on https://www.wunderground.com/weather/api/
+ *
+ * @author Guillaume Lajarige <lajarige.guillaume@free.fr>
  */
 class WeatherUndergroundAPIHelper {
 
@@ -26,9 +28,9 @@ class WeatherUndergroundAPIHelper {
 //    const DEFAULT_UNITS = 'metrics';
 
     public static $sBaseUrl = 'http://api.wunderground.com/api/{sApiKey}/lang:{sLocale}/';
-    public static $aUrls = array(
+    public static $aUrls = [
         'today' => 'conditions/'
-    );
+    ];
 
     public static $sApiKey = null;
     public static $sLocale = self::DEFAULT_LOCALE;
@@ -75,19 +77,19 @@ class WeatherUndergroundAPIHelper {
         // Retrieving data
         $sUrl = static::getUrl('today') . $sSearchParam . '.json';
         $aResult = static::doRemoteCall($sUrl);
-        
+
         // Parsing data
-        $aForecast = array(
-            'temperatures' => array(
+        $aForecast = [
+            'temperatures' => [
                 'current' => round($aResult['current_observation']['temp_c']),
                 'min' => round($aResult['current_observation']['temp_c']),
                 'max' => round($aResult['current_observation']['temp_c'])
-            ),
-            'conditions' => array(
+            ],
+            'conditions' => [
                 'description' => ucfirst($aResult['current_observation']['weather']),
                 'icon' => static::findIconFromCode($aResult['current_observation']['icon'])
-            )
-        );
+            ]
+        ];
 
         return $aForecast;
     }
@@ -100,26 +102,23 @@ class WeatherUndergroundAPIHelper {
      */
     private static function findIconFromCode($sCode) {
         // TODO : Find night icons
-        $aIconsMap = array(
+        $aIconsMap = [
             'clear' => 'sunny',
-            '02d' => 'sunny_s_cloudy',
-            'partlycloudy' => 'partly_cloudy',
             'cloudy' => 'cloudy',
-            '09d' => 'rain_light', // Note : This might be changed for 'rain' when we have found the lightning icon
-            '10d' => 'sunny_s_rain',
-            '11d' => 'rain',
-            '13d' => 'snow',
-            '50d' => 'fog',
-            '01n' => 'sunny',
-            '02n' => 'sunny_s_cloudy',
-            '03n' => 'partly_cloudy',
-            '04n' => 'cloudy',
-            '09n' => 'rain_light', // Note : This might be changed for 'rain' when we have found the lightning icon
-            '10n' => 'sunny_s_rain',
-            '11n' => 'rain',
-            '13n' => 'snow',
-            '50n' => 'fog',
-        );
+            'flurries' => 'rain', // Note : This might be changed when we have found the flurries icon
+            'fog' => 'fog',
+            'hazy' => 'mist',
+            'mostlycloudy' => 'cloudy_s_sunny',
+            'mostlysunny' => 'sunny_s_cloudy',
+            'partlycloudy' => 'partly_cloudy',
+            'partlysunny' => 'partly_cloudy',
+            'sleet' => 'sleet',
+            'rain' => 'rain',
+            'snow' => 'snow',
+            'sunny' => 'sunny',
+            'tstorms' => 'thunderstorms', // Note : This might be changed when we have found the lightning icon
+            'unknown' => 'partly_cloudy',
+        ];
 
         if (!array_key_exists($sCode, $aIconsMap)) {
             throw new Exception('WeatherUndergroundAPI : Could not find a matching icon for "' . $sCode . '"');
@@ -174,4 +173,3 @@ class WeatherUndergroundAPIHelper {
     
 }
 
-?>

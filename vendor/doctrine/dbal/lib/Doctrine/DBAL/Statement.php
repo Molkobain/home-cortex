@@ -19,9 +19,9 @@
 
 namespace Doctrine\DBAL;
 
-use PDO;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Driver\Statement as DriverStatement;
+use Doctrine\DBAL\Types\Type;
+use PDO;
 
 /**
  * A thin wrapper around a Doctrine\DBAL\Driver\Statement that adds support
@@ -138,6 +138,9 @@ class Statement implements \IteratorAggregate, DriverStatement
      */
     public function bindParam($name, &$var, $type = PDO::PARAM_STR, $length = null)
     {
+        $this->params[$name] = $var;
+        $this->types[$name] = $type;
+
         return $this->stmt->bindParam($name, $var, $type, $length);
     }
 

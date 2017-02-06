@@ -1,22 +1,25 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Router;
 
-use Molkobain\HomeCortex\Router\AbstractRouter;
-
+/**
+ * Class ClockRouter
+ *
+ * @author Guillaume Lajarige <lajarige.guillaume@free.fr>
+ */
 class ClockRouter extends AbstractRouter {
 
-    static $aRoutes = array(
-        array('pattern' => '/clock/show',
+    static $aRoutes = [
+        ['pattern' => '/clock/show',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\ClockController::showAction',
             'bind' => 'clock_show'
-        ),
-    );
+        ],
+    ];
 
 }
 

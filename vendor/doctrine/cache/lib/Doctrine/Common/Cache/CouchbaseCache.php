@@ -19,7 +19,7 @@
 
 namespace Doctrine\Common\Cache;
 
-use \Couchbase;
+use Couchbase;
 
 /**
  * Couchbase cache provider.

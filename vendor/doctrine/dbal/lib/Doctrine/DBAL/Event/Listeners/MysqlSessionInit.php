@@ -19,9 +19,9 @@
 
 namespace Doctrine\DBAL\Event\Listeners;
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Events;
-use Doctrine\Common\EventSubscriber;
 
 /**
  * MySQL Session Init Event Subscriber which allows to set the Client Encoding of the Connection.

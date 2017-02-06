@@ -2,10 +2,10 @@
 
 namespace Doctrine\Tests\Common\Cache;
 
+use Doctrine\Common\Cache\RiakCache;
 use Riak\Bucket;
 use Riak\Connection;
 use Riak\Exception;
-use Doctrine\Common\Cache\RiakCache;
 
 /**
  * RiakCache test

@@ -19,9 +19,9 @@
 
 namespace Doctrine\DBAL\Sharding\SQLAzure;
 
-use Doctrine\DBAL\Sharding\ShardManager;
-use Doctrine\DBAL\Sharding\ShardingException;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Sharding\ShardingException;
+use Doctrine\DBAL\Sharding\ShardManager;
 use Doctrine\DBAL\Types\Type;
 
 /**

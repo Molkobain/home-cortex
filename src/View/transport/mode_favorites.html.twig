@@ -79,7 +79,7 @@
 {% block pTransportWidgetScript %}
     <script type="text/javascript">
         var updateTransport = function() {
-            // Update the transport widget every 5s
+            // Update the transport widget
             updateWidget(
                 '#transport_widget',
                 function() {
@@ -93,7 +93,7 @@
                         $(this).html(oData);
                     })
                     .fail(function(oXHR, sStatus, sError) {
-                        alert('Error while refreshing transport widget : ' + sError);
+                        //alert('Error while refreshing transport widget : ' + sError);
                     });
                 }
             );
@@ -101,7 +101,7 @@
 
         $(document).ready(function() {
             // Update the widget every 20s (Will be called again when the ajax loads this HTML on .done())
-            //setTimeout(updateTransport, 20000);
+            setTimeout(updateTransport, 20000);
         });
     </script>
 {% endblock %}

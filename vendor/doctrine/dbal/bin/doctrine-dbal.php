@@ -17,8 +17,8 @@
  * <http://www.doctrine-project.org>.
  */
 
-use Symfony\Component\Console\Helper\HelperSet;
 use Doctrine\DBAL\Tools\Console\ConsoleRunner;
+use Symfony\Component\Console\Helper\HelperSet;
 
 $files       = array(__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php');
 $loader      = null;

@@ -19,8 +19,8 @@
 
 namespace Doctrine\DBAL\Types;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**
  * The base class for so-called Doctrine mapping types.

@@ -1,0 +1,62 @@
+<div class="widget">
+    {% for iDayIndex, aDayEvents in events %}
+        {% if iDayIndex < 3 %}
+            {% if iDayIndex == 0 %}
+                {% set sPeriodTitle = 'Aujourd\'hui' %}
+            {% elseif iDayIndex == 1 %}
+                {% set sPeriodTitle = 'Demain' %}
+            {% elseif iDayIndex == 2 %}
+                {% set sPeriodTitle = 'Après demain' %}
+            {% else %}
+                {% set sPeriodTitle = 'Jours suivants' %}
+            {% endif %}
+            <div class="cal_period">
+                <div class="cal_period_title">{{ sPeriodTitle }}</div>
+                <div class="cal_period_events">
+                    {% for aEvent in aDayEvents %}
+                    <div class="cal_period_event">
+                        {%  if aEvent.period.type == 'hours' %}
+                            <span class="cal_event_period">{{ aEvent.period.start|date('H:i') }}</span>
+                        {% endif %}
+                        <span class="cal_event_title">
+                            {# We display color only for other calendars, otherwise it's too messy #}
+                            {% if aEvent.calendar_name is not null %}
+                                <span class="cal_event_color" style="background-color: {{ aEvent.color_code }};"></span>
+                            {% endif %}
+                            {{ aEvent.title }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {%  endfor %}
+</div>
+
+<script type="text/javascript">
+    var updateCalendar = function() {
+        // Update the calendar widget
+        updateWidget(
+            '#calendar_widget',
+            function() {
+                $.ajax({
+                    url: '{{ app['url_generator'].generate('calendar_next_events') }}',
+                    context: $('#calendar_widget'),
+                    dataType: 'html'
+                })
+                .done(function(oData, sStatus, oXHR) {
+                    // Replacing widget content
+                    $(this).html(oData);
+                })
+                .fail(function(oXHR, sStatus, sError) {
+                    //alert('Error while refreshing calendar widget : ' + sError);
+                });
+            }
+        );
+    };
+
+    $(document).ready(function() {
+        // Update the widget every 5min (Will be called again when the ajax loads this HTML on .done())
+        setTimeout(updateCalendar, 300000);
+    });
+</script>

@@ -23,10 +23,10 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Tools\Console\Command\ImportCommand;
 use Doctrine\DBAL\Tools\Console\Command\ReservedWordsCommand;
 use Doctrine\DBAL\Tools\Console\Command\RunSqlCommand;
-use Symfony\Component\Console\Helper\HelperSet;
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
-use Symfony\Component\Console\Application;
 use Doctrine\DBAL\Version;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\HelperSet;
 
 /**
  * Handles running the Console Tools inside Symfony Console context.

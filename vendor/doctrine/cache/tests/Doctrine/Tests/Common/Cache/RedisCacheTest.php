@@ -2,8 +2,8 @@
 
 namespace Doctrine\Tests\Common\Cache;
 
-use Doctrine\Common\Cache\RedisCache;
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\RedisCache;
 
 /**
  * @requires extension redis
@@ -33,6 +33,18 @@ class RedisCacheTest extends CacheTest
     public function testGetRedisReturnsInstanceOfRedis()
     {
         $this->assertInstanceOf('Redis', $this->_getCacheDriver()->getRedis());
+    }
+
+    public function testSerializerOptionWithOutIgbinaryExtension()
+    {
+        if (defined('Redis::SERIALIZER_IGBINARY') && extension_loaded('igbinary')) {
+            $this->markTestSkipped('Extension igbinary is loaded.');
+        }
+
+        $this->assertEquals(
+            \Redis::SERIALIZER_PHP,
+            $this->_getCacheDriver()->getRedis()->getOption(\Redis::OPT_SERIALIZER)
+        );
     }
 
     /**

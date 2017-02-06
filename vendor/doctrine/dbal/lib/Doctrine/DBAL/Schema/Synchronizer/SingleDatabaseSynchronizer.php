@@ -20,8 +20,8 @@
 namespace Doctrine\DBAL\Schema\Synchronizer;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Comparator;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Visitor\DropSchemaSqlCollector;
 
 /**

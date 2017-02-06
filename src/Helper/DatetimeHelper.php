@@ -1,16 +1,15 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Helper;
 
-use Exception;
+use DateInterval;
 use DateTime;
 use DateTimeZone;
-use DateInterval;
 
 /**
  * DatetimeHelper

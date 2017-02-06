@@ -11,8 +11,8 @@
 
 namespace Symfony\Component\HttpFoundation\File\MimeType;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**
  * A singleton mime type guesser.
@@ -56,7 +56,7 @@ class MimeTypeGuesser implements MimeTypeGuesserInterface
     /**
      * Returns the singleton instance.
      *
-     * @return MimeTypeGuesser
+     * @return self
      */
     public static function getInstance()
     {

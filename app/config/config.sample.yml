@@ -1,5 +1,7 @@
 parameters:
-  name: Application name
+  app:
+    name: Application name
+    base_url: http://localhost/
   date:
     timezone: Europe/Paris
   locale: eng # Windows style ('en_US' otherwise)

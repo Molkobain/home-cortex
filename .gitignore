@@ -2,3 +2,5 @@
 /nbproject
 /composer.lock
 /app/config/config.yml
+/app/config/google_api-client_secret.json
+/app/config/google_api-calendar_credentials.json

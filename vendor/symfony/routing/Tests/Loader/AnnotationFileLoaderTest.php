@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
-use Symfony\Component\Routing\Loader\AnnotationFileLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Loader\AnnotationFileLoader;
 
 class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
 {
@@ -43,6 +43,15 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
         $this->reader->expects($this->never())->method('getClassAnnotation');
 
         $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/FooTrait.php');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Did you forgot to add the "<?php" start tag at the beginning of the file?
+     */
+    public function testLoadFileWithoutStartTag()
+    {
+        $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/NoStartTagClass.php');
     }
 
     /**

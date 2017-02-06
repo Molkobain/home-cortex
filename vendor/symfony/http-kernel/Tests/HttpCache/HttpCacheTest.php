@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\HttpKernel\Tests\HttpCache;
 
-use Symfony\Component\HttpKernel\HttpCache\HttpCache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpCache\HttpCache;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
@@ -799,6 +799,21 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->assertTraceNotContains('miss');
     }
 
+    public function testValidatesCachedResponsesUseSameHttpMethod()
+    {
+        $test = $this;
+
+        $this->setNextResponse(200, array(), 'Hello World', function ($request, $response) use ($test) {
+            $test->assertSame('OPTIONS', $request->getMethod());
+        });
+
+        // build initial request
+        $this->request('OPTIONS', '/');
+
+        // build subsequent request
+        $this->request('OPTIONS', '/');
+    }
+
     public function testValidatesCachedResponsesWithETagAndNoFreshnessInformation()
     {
         $this->setNextResponse(200, array(), 'Hello World', function ($request, $response) {
@@ -1245,6 +1260,21 @@ class HttpCacheTest extends HttpCacheTestCase
         $this->request('GET', '/', array(), array(), true);
         $this->assertNull($this->response->getETag());
         $this->assertNull($this->response->getLastModified());
+    }
+
+    public function testDoesNotCacheOptionsRequest()
+    {
+        $this->setNextResponse(200, array('Cache-Control' => 'public, s-maxage=60'), 'get');
+        $this->request('GET', '/');
+        $this->assertHttpKernelIsCalled();
+
+        $this->setNextResponse(200, array('Cache-Control' => 'public, s-maxage=60'), 'options');
+        $this->request('OPTIONS', '/');
+        $this->assertHttpKernelIsCalled();
+
+        $this->request('GET', '/');
+        $this->assertHttpKernelIsNotCalled();
+        $this->assertSame('get', $this->response->getContent());
     }
 }
 

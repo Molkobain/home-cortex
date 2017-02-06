@@ -19,10 +19,10 @@
 
 namespace Doctrine\DBAL\Schema;
 
-use Doctrine\DBAL\Events;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Event\SchemaColumnDefinitionEventArgs;
 use Doctrine\DBAL\Event\SchemaIndexDefinitionEventArgs;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Events;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**

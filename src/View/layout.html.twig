@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block pPageTitle %}{% if sPageTitle is defined and sPageTitle is not null %}{{ sPageTitle }}{% else %}{{ app.parameters.name }}{% endif %}{% endblock %}</title>
+        <title>{% block pPageTitle %}{% if sPageTitle is defined and sPageTitle is not null %}{{ sPageTitle }}{% else %}{{ app.parameters.app.name }}{% endif %}{% endblock %}</title>
 
         {% block pMetaTags %}
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -26,9 +26,9 @@
         {% endblock %}
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="pull-left">
                     <div class="left_column widgets_container">
                         <div id="clock_widget" class="widget_container">
                         </div>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="pull-right">
                     <div class="right_column widgets_container">
                         <div id="weather_widget" class="widget_container">
                         </div>
@@ -96,10 +96,12 @@
 
             $(document).ready(function() {
                 // Loading widgets
-                // - Weather
-                $('#weather_widget').load('{{ app['url_generator'].generate('weather_forecast_today') }}');
                 // - Clock
                 $('#clock_widget').load('{{ app['url_generator'].generate('clock_show') }}');
+                // - Calendar
+                $('#calendar_widget').load('{{ app['url_generator'].generate('calendar_next_events') }}');
+                // - Weather
+                $('#weather_widget').load('{{ app['url_generator'].generate('weather_forecast_today') }}');
                 // - Transport
                 $('#transport_widget').load('{{ app['url_generator'].generate('transport_favorites') }}');
             });

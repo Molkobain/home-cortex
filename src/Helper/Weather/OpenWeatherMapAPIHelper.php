@@ -1,9 +1,9 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Helper\Weather;
 
@@ -14,6 +14,8 @@ use Exception;
  * It allows to retrieve informations on transportation in the Grenoble, FR area
  *
  * More informations on http://www.metromobilite.fr/pages/opendata/OpenDataApi.html
+ *
+ * @author Guillaume Lajarige <lajarige.guillaume@free.fr>
  */
 class OpenWeatherMapAPIHelper {
 
@@ -26,9 +28,9 @@ class OpenWeatherMapAPIHelper {
     const DEFAULT_UNITS = 'metrics';
 
     public static $sBaseUrl = 'http://api.openweathermap.org/data/2.5/';
-    public static $aUrls = array(
+    public static $aUrls = [
         'today' => 'weather'
-    );
+    ];
 
     public static $sApiKey = null;
     public static $sLocale = self::DEFAULT_LOCALE;
@@ -76,17 +78,17 @@ class OpenWeatherMapAPIHelper {
         $aResult = static::doRemoteCall($sUrl);
 
         // Parsing data
-        $aForecast = array(
-            'temperatures' => array(
+        $aForecast = [
+            'temperatures' => [
                 'current' => round($aResult['main']['temp']),
                 'min' => round($aResult['main']['temp_min']),
                 'max' => round($aResult['main']['temp_max'])
-            ),
-            'conditions' => array(
+            ],
+            'conditions' => [
                 'description' => ucfirst($aResult['weather'][0]['description']),
                 'icon' => static::findIconFromCode($aResult['weather'][0]['icon'])
-            )
-        );
+            ]
+        ];
 
         return $aForecast;
     }
@@ -99,26 +101,26 @@ class OpenWeatherMapAPIHelper {
      */
     private static function findIconFromCode($sCode) {
         // TODO : Find night icons
-        $aIconsMap = array(
+        $aIconsMap = [
             '01d' => 'sunny',
             '02d' => 'sunny_s_cloudy',
             '03d' => 'partly_cloudy',
             '04d' => 'cloudy',
-            '09d' => 'rain_light', // Note : This might be changed for 'rain' when we have found the lightning icon
+            '09d' => 'rain',
             '10d' => 'sunny_s_rain',
-            '11d' => 'rain',
+            '11d' => 'thunderstorms',
             '13d' => 'snow',
             '50d' => 'fog',
             '01n' => 'sunny',
             '02n' => 'sunny_s_cloudy',
             '03n' => 'partly_cloudy',
             '04n' => 'cloudy',
-            '09n' => 'rain_light', // Note : This might be changed for 'rain' when we have found the lightning icon
+            '09n' => 'rain',
             '10n' => 'sunny_s_rain',
-            '11n' => 'rain',
+            '11n' => 'thunderstorms',
             '13n' => 'snow',
             '50n' => 'fog',
-        );
+        ];
 
         if (!array_key_exists($sCode, $aIconsMap)) {
             throw new Exception('OpenWeatherMapAPI : Could not find a matching icon for "' . $sCode . '"');
@@ -178,4 +180,3 @@ class OpenWeatherMapAPIHelper {
     
 }
 
-?>

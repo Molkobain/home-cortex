@@ -12,8 +12,8 @@
 namespace Silex\Tests;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\ServiceControllerServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Callback as services test cases.

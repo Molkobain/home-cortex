@@ -1,9 +1,9 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Helper\Transport;
 
@@ -16,15 +16,17 @@ use Molkobain\HomeCortex\Helper\StringHelper;
  * It allows to retrieve informations on transportation in the Grenoble, FR area
  *
  * More informations on http://www.metromobilite.fr/pages/opendata/OpenDataApi.html
+ *
+ * @author Guillaume Lajarige <lajarige.guillaume@free.fr>
  */
 class MetromobiliteAPIHelper {
 
     public static $sBaseUrl = 'http://data.metromobilite.fr/';
-    public static $aUrls = array(
+    public static $aUrls = [
         'routes' => 'api/routers/default/index/routes?codes={sRouteIds}',
         'clustertimes' => 'api/routers/default/index/clusters/{sClusterId}/stoptimes',
         'stoptimes' => 'api/routers/default/index/stops/{sStopId}/stoptimes'
-    );
+    ];
 
     /**
      * Returns an array of routes
@@ -35,7 +37,7 @@ class MetromobiliteAPIHelper {
     public static function getRoutes($routeIds) {
         // Preparing query
         if (!is_array($routeIds)) {
-            $routeIds = array($routeIds);
+            $routeIds = [$routeIds];
         }
         $sRouteIds = implode(',', $routeIds);
 
@@ -44,15 +46,15 @@ class MetromobiliteAPIHelper {
         $aResult = static::doRemoteCall($sUrl);
 
         // Parsing data
-        $aRoutes = array();
+        $aRoutes = [];
         foreach ($aResult as $aTmpRoute) {
-            $aRoutes[$aTmpRoute['id']] = array(
+            $aRoutes[$aTmpRoute['id']] = [
                 'id' => $aTmpRoute['id'],
                 'shortName' => $aTmpRoute['shortName'],
                 'longName' => $aTmpRoute['longName'],
                 'backgroundColor' => $aTmpRoute['color'],
                 'foregroundColor' => $aTmpRoute['textColor']
-            );
+            ];
         }
 
         return $aRoutes;
@@ -85,14 +87,14 @@ class MetromobiliteAPIHelper {
         $aResult = static::doRemoteCall($sUrl);
         
         // Parsing data
-        $aStopTimes = array();
+        $aStopTimes = [];
         try {
             foreach ($aResult as $aLine) {
-                $aLineTimes = array(
+                $aLineTimes = [
                     'direction' => $aLine['pattern']['dir'],
                     'description' => StringHelper::toCamelCase($aLine['pattern']['desc'], false),
-                    'times' => array()
-                );
+                    'times' => []
+                ];
                 
                 foreach ($aLine['times'] as $aTime) {
                     $oDatetime = DatetimeHelper::makeDatetimeFromTimestamp(($aTime['realtime'] === true) ? $aTime['realtimeDeparture'] : $aTime['scheduledDeparture'], true);
@@ -105,14 +107,14 @@ class MetromobiliteAPIHelper {
                         $sIntervalFormat = '<1min';
                     }
 
-                    $aLineTimes['times'][] = array(
-                        'departure' => array(
+                    $aLineTimes['times'][] = [
+                        'departure' => [
                             'datetime' => $oDatetime,
                             'timestamp' => $oDatetime->getTimestamp(),
                             'interval' => date_diff(new DateTime(), $oDatetime)->format($sIntervalFormat),
                             'realtime' => ($aTime['realtime'] === true)
-                        )
-                    );
+                        ]
+                    ];
                 }
 
                 $aStopTimes[$aLine['pattern']['id']] = $aLineTimes;

@@ -2,8 +2,8 @@
 
 namespace Doctrine\Tests\Common\Cache;
 
-use Doctrine\Common\Cache\Cache;
 use ArrayObject;
+use Doctrine\Common\Cache\Cache;
 
 abstract class CacheTest extends \Doctrine\Tests\DoctrineTestCase
 {

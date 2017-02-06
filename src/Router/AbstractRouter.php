@@ -1,9 +1,9 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Router;
 
@@ -30,7 +30,7 @@ abstract class AbstractRouter
 	 *
 	 * @var array
 	 */
-	static $aRoutes = array();
+	static $aRoutes = [];
 
 	/**
 	 * Returns routes of the current AbstractRouter defined in $aRoutes.
@@ -51,7 +51,7 @@ abstract class AbstractRouter
 	 */
 	static function getRoute($name) {
 		$bFound = false;
-		$aFoundRoute = array();
+		$aFoundRoute = [];
 
 		foreach (static::$aRoutes as $aRoute)
 		{

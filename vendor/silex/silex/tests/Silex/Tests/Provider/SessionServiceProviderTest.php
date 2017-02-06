@@ -12,10 +12,10 @@
 namespace Silex\Tests\Provider;
 
 use Silex\Application;
-use Silex\WebTestCase;
 use Silex\Provider\SessionServiceProvider;
-use Symfony\Component\HttpKernel\Client;
+use Silex\WebTestCase;
 use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpKernel\Client;
 
 /**
  * SessionProvider test cases.

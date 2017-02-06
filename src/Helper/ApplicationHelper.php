@@ -1,18 +1,18 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Helper;
 
 use Exception;
+use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 use Silex\Application;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
 use Twig_SimpleFilter;
-use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 
 /**
  * Contains static methods to help loading / registering classes of the application.
@@ -30,7 +30,8 @@ class ApplicationHelper {
     public static function loadAppVariables(Application $oApp) {
         // Global variables
         $oApp['instance.base_dir'] = APP_BASE_DIR;
-        $oApp['instance.base_url'] = APP_BASE_URL;
+        //$oApp['instance.base_url'] = APP_BASE_URL;
+        $oApp['instance.base_url'] = $oApp['parameters']['app']['base_url'];
         $oApp['instance.version'] = APP_VERSION;
 
         // Timezone
@@ -102,7 +103,7 @@ class ApplicationHelper {
      * @throws \Exception
      */
     public static function registerRoutes(Application $oApp) {
-        $aAllRoutes = array();
+        $aAllRoutes = [];
 
         foreach (get_declared_classes() as $sPHPClass) {
             if (is_subclass_of($sPHPClass, 'Molkobain\\HomeCortex\\Router\\AbstractRouter')) {
@@ -165,12 +166,12 @@ class ApplicationHelper {
 
         if (!$oApp['debug']) {
             $oApp->error(function(Exception $e, $code) use ($oApp) {
-                        $aData = array(
+                        $aData = [
                             'exception' => $e,
                             'code' => $code,
                             'error_title' => '',
                             'error_message' => $e->getMessage()
-                        );
+                        ];
 
                         switch ($code) {
                             case 404:

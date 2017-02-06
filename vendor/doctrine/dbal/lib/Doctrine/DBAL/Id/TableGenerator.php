@@ -19,8 +19,8 @@
 
 namespace Doctrine\DBAL\Id;
 
-use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 
 /**
  * Table ID Generator for those poor languages that are missing sequences.

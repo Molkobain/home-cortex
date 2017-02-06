@@ -12,8 +12,8 @@
 namespace Silex;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseControllerResolver;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseControllerResolver;
 
 /**
  * Adds Application as a valid argument for controllers.

@@ -12,9 +12,9 @@
 namespace Symfony\Component\HttpKernel\Tests\EventListener;
 
 use Psr\Log\LogLevel;
-use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -36,7 +36,7 @@ class DebugHandlersListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testConfigure()
     {
-        $logger = $this->getMock('Psr\Log\LoggerInterface');
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         $userHandler = function () {};
         $listener = new DebugHandlersListener($userHandler, $logger);
         $xHandler = new ExceptionHandler();
@@ -70,7 +70,7 @@ class DebugHandlersListenerTest extends \PHPUnit_Framework_TestCase
         $listener = new DebugHandlersListener(null);
         $eHandler = new ErrorHandler();
         $event = new KernelEvent(
-            $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface'),
+            $this->getMockBuilder('Symfony\Component\HttpKernel\HttpKernelInterface')->getMock(),
             Request::create('/'),
             HttpKernelInterface::MASTER_REQUEST
         );
@@ -94,7 +94,7 @@ class DebugHandlersListenerTest extends \PHPUnit_Framework_TestCase
     {
         $dispatcher = new EventDispatcher();
         $listener = new DebugHandlersListener(null);
-        $app = $this->getMock('Symfony\Component\Console\Application');
+        $app = $this->getMockBuilder('Symfony\Component\Console\Application')->getMock();
         $app->expects($this->once())->method('getHelperSet')->will($this->returnValue(new HelperSet()));
         $command = new Command(__FUNCTION__);
         $command->setApplication($app);

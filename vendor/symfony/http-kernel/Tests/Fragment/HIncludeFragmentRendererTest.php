@@ -11,10 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fragment;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\HIncludeFragmentRenderer;
 use Symfony\Component\HttpKernel\UriSigner;
-use Symfony\Component\HttpFoundation\Request;
 
 class HIncludeFragmentRendererTest extends \PHPUnit_Framework_TestCase
 {
@@ -75,7 +75,7 @@ class HIncludeFragmentRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderWithDefaultText()
     {
-        $engine = $this->getMock('Symfony\\Component\\Templating\\EngineInterface');
+        $engine = $this->getMockBuilder('Symfony\\Component\\Templating\\EngineInterface')->getMock();
         $engine->expects($this->once())
             ->method('exists')
             ->with('default')

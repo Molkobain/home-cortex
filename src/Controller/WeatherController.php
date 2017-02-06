@@ -1,25 +1,28 @@
 <?php
 
 // Copyright (C) 2016 Guillaume Lajarige
-//
-// lajarige.guillaume@free.fr
 // https://github.com/Molkobain
+//
+// This file is part of an open-source project
 
 namespace Molkobain\HomeCortex\Controller;
 
+use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Molkobain\HomeCortex\Controller\AbstractController;
-use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 
+/**
+ * Class WeatherController
+ *
+ * @author Guillaume Lajarige <lajarige.guillaume@free.fr>
+ */
 class WeatherController extends AbstractController {
 
     public function forecastTodayAction(Request $oRequest, Application $oApp) {
         // Note : This could be passed with JS format so the client knows how to handle it
-        $aData = array(
-        );
+        $aData = [];
 
-        $aCoordinates = array('latitude' => $oApp['parameters']['localisation']['latitude'], 'longitude' => $oApp['parameters']['localisation']['longitude']);
+        $aCoordinates = ['latitude' => $oApp['parameters']['localisation']['latitude'], 'longitude' => $oApp['parameters']['localisation']['longitude']];
         //$aResult = OpenWeatherMapAPIHelper::getToday($aCoordinates, OpenWeatherMapAPIHelper::ENUM_SEARCH_MODE_COORDINATES);
         $aResult = WeatherUndergroundAPIHelper::getToday($aCoordinates, WeatherUndergroundAPIHelper::ENUM_SEARCH_MODE_COORDINATES);
 

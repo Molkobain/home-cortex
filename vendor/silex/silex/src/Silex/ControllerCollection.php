@@ -11,8 +11,8 @@
 
 namespace Silex;
 
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Builds Silex controllers.

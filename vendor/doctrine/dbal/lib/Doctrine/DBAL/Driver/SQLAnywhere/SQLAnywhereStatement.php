@@ -19,9 +19,9 @@
 
 namespace Doctrine\DBAL\Driver\SQLAnywhere;
 
+use Doctrine\DBAL\Driver\Statement;
 use IteratorAggregate;
 use PDO;
-use Doctrine\DBAL\Driver\Statement;
 
 /**
  * SAP SQL Anywhere implementation of the Statement interface.

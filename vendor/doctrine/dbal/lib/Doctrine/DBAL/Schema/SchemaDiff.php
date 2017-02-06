@@ -19,7 +19,7 @@
 
 namespace Doctrine\DBAL\Schema;
 
-use \Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**
  * Schema Diff.
@@ -154,7 +154,7 @@ class SchemaDiff
 
         if ($platform->supportsForeignKeyConstraints() && $saveMode == false) {
             foreach ($this->orphanedForeignKeys as $orphanedForeignKey) {
-                $sql[] = $platform->getDropForeignKeySQL($orphanedForeignKey, $orphanedForeignKey->getLocalTableName());
+                $sql[] = $platform->getDropForeignKeySQL($orphanedForeignKey, $orphanedForeignKey->getLocalTable());
             }
         }
 

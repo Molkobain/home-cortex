@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
     var updateWeather = function() {
-        // Update the transport widget every 5s
+        // Update the transport widget
         updateWidget(
             '#weather_widget',
             function() {
@@ -25,14 +25,14 @@
                     $(this).html(oData);
                 })
                 .fail(function(oXHR, sStatus, sError) {
-                    alert('Error while refreshing weather widget : ' + sError);
+                    //alert('Error while refreshing weather widget : ' + sError);
                 });
             }
         );
     };
 
     $(document).ready(function() {
-        // Update the widget every 2min (Will be called again when the ajax loads this HTML on .done())
-        setTimeout(updateWeather, 120000);
+        // Update the widget every 5min (Will be called again when the ajax loads this HTML on .done())
+        setTimeout(updateWeather, 300000);
     });
 </script>
