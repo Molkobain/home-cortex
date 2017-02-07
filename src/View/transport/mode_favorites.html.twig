@@ -15,7 +15,7 @@
                 {% if aStop.route.id != sCurrentRouteId %}
                     <div class="tsp_line tsp_line_compact" data-route-id="{{ aStop.route.id }}">
                         <div class="tsp_line_header">
-                            <div class="tsp_line_logo" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
+                            <div class="tsp_line_logo pull-left" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
                             <div class="tsp_line_title">
                                 <div class="tsp_line_stop">Championnet</div>
                             </div>
@@ -101,7 +101,7 @@
 
         $(document).ready(function() {
             // Update the widget every 20s (Will be called again when the ajax loads this HTML on .done())
-            setTimeout(updateTransport, 20000);
+            //setTimeout(updateTransport, 20000);
         });
     </script>
 {% endblock %}

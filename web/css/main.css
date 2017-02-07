@@ -56,21 +56,23 @@ body{
     font-size: 18px;
 }
 /* - Transport widget */
+.tsp_line{
+    max-width: 155px;
+}
 .tsp_line .tsp_line_header{
     position: relative;
     margin-bottom: 8px;
 }
 .tsp_line .tsp_line_logo{
     position: absolute;
-    top: 7px;
-    right: 140px;
-    width: 25px;
-    height: 25px;
-    line-height: 26px;
-    font-size: 15px;
+    top: 2px;
+    right: 135px;
+    width: 21px;
+    height: 20px;
+    line-height: 21px;
+    font-size: 12px;
     font-weight: 700;
     text-align: center;
-    /*border-radius: 25px;*/
     border-radius: 2px;
 }
 .tsp_line .tsp_line_header .tsp_line_title{
@@ -109,8 +111,11 @@ body{
     margin-bottom: 0px;
 }
 .tsp_line.tsp_line_compact .tsp_line_logo{
+    position: relative;
+    /*top: 2px;
+    right: 125px;*/
     top: 2px;
-    right: 125px;
+    right: initial;
     width: 20px;
     height: 20px;
     line-height: 22px;
@@ -124,6 +129,9 @@ body{
     font-size: 13px;
     font-weight: 400;
     font-style: italic;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .tsp_line.tsp_line_compact .tsp_line_content .tsp_line_time{
     position: relative;
