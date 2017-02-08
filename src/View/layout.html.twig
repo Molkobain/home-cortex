@@ -48,6 +48,13 @@
         </div>
 
         <script type="text/javascript">
+            var iDefaultFadingDuration = 1500;
+
+            /** Load a widget for the first time */
+            var loadWidget = function(target, endpoint){
+                $(target).hide().load(endpoint, function(){ $(target).fadeIn(iDefaultFadingDuration); });
+            };
+
             /**
              * Update a widget content with some visual effects
              *
@@ -82,7 +89,7 @@
 
                 // Checking duration value
                 if (iDuration === undefined || iDuration === null) {
-                    iDuration = 1500;
+                    iDuration = iDefaultFadingDuration;
                 }
 
                 // Updating widget
@@ -97,13 +104,13 @@
             $(document).ready(function() {
                 // Loading widgets
                 // - Clock
-                $('#clock_widget').load('{{ app['url_generator'].generate('clock_show') }}');
+                loadWidget('#clock_widget', '{{ app['url_generator'].generate('clock_show') }}');
                 // - Calendar
-                $('#calendar_widget').load('{{ app['url_generator'].generate('calendar_next_events') }}');
+                loadWidget('#calendar_widget', '{{ app['url_generator'].generate('calendar_next_events') }}');
                 // - Weather
-                $('#weather_widget').load('{{ app['url_generator'].generate('weather_forecast_today') }}');
+                loadWidget('#weather_widget', '{{ app['url_generator'].generate('weather_forecast_today') }}');
                 // - Transport
-                $('#transport_widget').load('{{ app['url_generator'].generate('transport_favorites') }}');
+                loadWidget('#transport_widget', '{{ app['url_generator'].generate('transport_favorites') }}');
             });
         </script>
     </body>
