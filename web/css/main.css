@@ -112,8 +112,6 @@ body{
 }
 .tsp_line.tsp_line_compact .tsp_line_logo{
     position: relative;
-    /*top: 2px;
-    right: 125px;*/
     top: 2px;
     right: initial;
     margin-left: 8px;
