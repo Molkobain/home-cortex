@@ -22,3 +22,7 @@ parameters:
     deezer:
       app_id: PUT_YOUR_APP_ID
       secret_key: PUT_YOUR_APP_SECRET
+  calendar_providers:
+      google:
+        primary_id: PUT_YOUR_GMAIL_EMAIL_ADDRESS
+        other_ids: []
