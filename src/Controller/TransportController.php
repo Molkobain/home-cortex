@@ -30,6 +30,10 @@ class TransportController extends AbstractController {
                 'rank' => 1.5,
                 'routes' => ['SEM:C3']
             ],
+            'SEM:0235' => [
+                'rank' => 3,
+                'routes' => ['SEM:C3']
+            ],
             'SEM:0754' => [
                 'rank' => 2,
                 'routes' => ['SEM:C4']
@@ -74,7 +78,8 @@ class TransportController extends AbstractController {
                         $aTmpStopTime = [
                             'stop' => [
                                 'id' => $sStopId,
-                                'routeId' => $sTmpRouteId
+                                'routeId' => $sTmpRouteId,
+                                'name' => $aTmpStopData['name'],
                             ],
                             'route' => $aRoutes[$sTmpRouteId],
                             'direction' => $aTmpStopData['description'],
@@ -90,7 +95,7 @@ class TransportController extends AbstractController {
                 }
             }
         }
-        
+
         // Preparing response data
         $aData['aStopTimes'] = $aStopTimes;
         $sTemplate = 'transport/mode_favorites.html.twig';

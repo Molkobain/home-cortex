@@ -3,21 +3,22 @@
 {% block pTransportWidgetContent %}{% spaceless %}
     <div id="tsp_favorites" class="tsp_lines">
         {% if aStopTimes|length > 1 %}
-            {% set sCurrentRouteId = null %}
+            {% set sPreviousRouteId = null %}
+            {% set sPreviousStopName = null %}
 
             {% for aStop in aStopTimes %}
                 {# Closing previous line div #}
-                {% if aStop.route.id != sCurrentRouteId and sCurrentRouteId != null %}
+                {% if sPreviousRouteId != null and aStop.route.id != sPreviousRouteId and aStop.stop.name != sPreviousStopName %}
                         </div>
                     </div>
                 {% endif %}
 
-                {% if aStop.route.id != sCurrentRouteId %}
+                {% if aStop.route.id != sPreviousRouteId and aStop.stop.name != sPreviousStopName %}
                     <div class="tsp_line tsp_line_compact" data-route-id="{{ aStop.route.id }}">
                         <div class="tsp_line_header">
                             <div class="tsp_line_logo pull-right" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
                             <div class="tsp_line_title">
-                                <div class="tsp_line_stop">Championnet</div>
+                                <div class="tsp_line_stop">{{ aStop.stop.name }}</div>
                             </div>
                         </div>
                         <div class="tsp_line_content">
@@ -40,8 +41,9 @@
                         </div>
                     </div>
                 {% endif %}
-            
-                {% set sCurrentRouteId = aStop.route.id %}
+
+                {% set sPreviousRouteId = aStop.route.id %}
+                {% set sPreviousStopName = aStop.stop.name %}
             {% endfor %}
         {% else %}
             {% for aStop in aStopTimes %}
@@ -49,7 +51,7 @@
                     <div class="tsp_line_header">
                         <div class="tsp_line_logo" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
                         <div class="tsp_line_title">
-                            <div class="tsp_line_stop">Championnet</div>
+                            <div class="tsp_line_stop">{{ aStop.stop.name }}</div>
                             <div class="tsp_line_direction">Dir. {{ aStop.direction }}</div>
                         </div>
                     </div>

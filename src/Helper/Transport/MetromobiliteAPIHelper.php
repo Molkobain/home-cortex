@@ -97,6 +97,7 @@ class MetromobiliteAPIHelper {
                 ];
                 
                 foreach ($aLine['times'] as $aTime) {
+                    // Formatting remaining time
                     $oDatetime = DatetimeHelper::makeDatetimeFromTimestamp(($aTime['realtime'] === true) ? $aTime['realtimeDeparture'] : $aTime['scheduledDeparture'], true);
                     $iSecondsToDatetime = abs($oDatetime->getTimestamp() - time());
                     if ($iSecondsToDatetime >= 60 * 60) {
@@ -107,6 +108,7 @@ class MetromobiliteAPIHelper {
                         $sIntervalFormat = '<1min';
                     }
 
+                    // Adding remaining time
                     $aLineTimes['times'][] = [
                         'departure' => [
                             'datetime' => $oDatetime,
@@ -115,6 +117,11 @@ class MetromobiliteAPIHelper {
                             'realtime' => ($aTime['realtime'] === true)
                         ]
                     ];
+
+                    // Updating stop name
+                    $sRawStopName = $aTime['stopName'];
+                    $sStopName = StringHelper::toCamelCase(substr($sRawStopName, strpos($sRawStopName, ',')+2), false);
+                    $aLineTimes['name'] = $sStopName;
                 }
 
                 $aStopTimes[$aLine['pattern']['id']] = $aLineTimes;
