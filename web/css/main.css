@@ -56,7 +56,7 @@ body{
 }
 /* - Transport widget */
 .tsp_line{
-    max-width: 155px;
+    /*max-width: 155px; This doesn't seem to be needed anymore */
 }
 .tsp_line .tsp_line_header{
     position: relative;
