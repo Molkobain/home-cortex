@@ -17,7 +17,7 @@ use Exception;
 class StringHelper {
 
     /**
-     * Format $sValue to camel case. If $bTrim is false, then spaces and other characters like '_' / '-' / etc wille be preserved.
+     * Format $sValue to camel case. If $bTrim is false, then spaces and other characters like '_' / '-' / etc will be preserved.
      *
      * @param string $sValue String to format
      * @param boolean $bTrim Remove none alpha-numeric characters
