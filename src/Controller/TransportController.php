@@ -7,9 +7,10 @@
 
 namespace Molkobain\HomeCortex\Controller;
 
-use Molkobain\HomeCortex\Helper\Transport\MetromobiliteAPIHelper;
+use Exception;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Molkobain\HomeCortex\Helper\Transport\MetromobiliteAPIHelper;
 
 /**
  * Class TransportController
@@ -21,24 +22,17 @@ class TransportController extends AbstractController {
     public function showFavoritesAction(Request $oRequest, Application $oApp) {
         $aData = [];
 
-        $aRequestedStops = [
-            'SEM:0750' => [
-                'rank' => 1,
-                'routes' => ['SEM:C3']
-            ],
-            'SEM:0749' => [
-                'rank' => 1.5,
-                'routes' => ['SEM:C3']
-            ],
-            'SEM:0235' => [
-                'rank' => 3,
-                'routes' => ['SEM:C3']
-            ],
-//            'SEM:0754' => [
-//                'rank' => 2,
-//                'routes' => ['SEM:C4']
-//            ],
-        ];
+        // Retrieving stops from config
+        $aRequestedStops = [];
+        try
+        {
+            $aRequestedStops = $oApp['parameters']['transport_providers']['metromobilite']['favorites']['stops'];
+        }
+        catch(Exception $e)
+        {
+            // Do nothing
+        }
+
         // - Sorting stops by rank
         uasort($aRequestedStops, function($a, $b) {
                     return $a['rank'] > $b['rank'];

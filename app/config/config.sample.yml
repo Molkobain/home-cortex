@@ -26,3 +26,16 @@ parameters:
       google:
         primary_id: PUT_YOUR_GMAIL_EMAIL_ADDRESS
         other_ids: []
+  transport_providers:
+      metromobilite:
+        favorites:
+          stops:
+            STOP_ID_1:
+              rank: 1
+              routes: [ROUTE_ID_1]
+            STOP_ID_2:
+              rank: 2
+              routes: [ROUTE_ID_1]
+            STOP_ID_3:
+              rank: 3
+              routes: [ROUTE_ID_2]
