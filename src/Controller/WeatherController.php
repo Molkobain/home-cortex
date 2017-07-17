@@ -7,9 +7,9 @@
 
 namespace Molkobain\HomeCortex\Controller;
 
-use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 
 /**
  * Class WeatherController

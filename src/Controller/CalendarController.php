@@ -8,9 +8,9 @@
 namespace Molkobain\HomeCortex\Controller;
 
 use Exception;
-use Molkobain\HomeCortex\Helper\Calendar\GoogleCalendarAPIHelper;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Molkobain\HomeCortex\Helper\Calendar\GoogleCalendarAPIHelper;
 
 /**
  * Class CalendarController

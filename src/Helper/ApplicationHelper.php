@@ -8,11 +8,11 @@
 namespace Molkobain\HomeCortex\Helper;
 
 use Exception;
-use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 use Silex\Application;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
 use Twig_SimpleFilter;
+use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
 
 /**
  * Contains static methods to help loading / registering classes of the application.
