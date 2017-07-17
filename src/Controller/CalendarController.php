@@ -7,6 +7,7 @@
 
 namespace Molkobain\HomeCortex\Controller;
 
+use Exception;
 use Molkobain\HomeCortex\Helper\Calendar\GoogleCalendarAPIHelper;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,29 @@ class CalendarController extends AbstractController {
         // Note : This could be passed with JS format so the client knows how to handle it
         $aData = [];
 
-        $aResult = GoogleCalendarAPIHelper::getNextEvents( ["guillaume.lajarige@gmail.com", "kutfdj0o1j6o4b2f9jh55u369g@group.calendar.google.com", "#contacts@group.v.calendar.google.com"] );
+        // Retrieving calendar ids from config
+        $aCalendarIds = [];
+        try
+        {
+            $aGoogleCalendarConf = $oApp['parameters']['calendar_providers']['google'];
+            // - Primary calendar
+            if(isset($aGoogleCalendarConf['primary_id']))
+            {
+                $aCalendarIds[] = $aGoogleCalendarConf['primary_id'];
+            }
+            // - Secondary calendars
+            if(isset($aGoogleCalendarConf['other_ids']) && is_array($aGoogleCalendarConf['other_ids']))
+            {
+                $aCalendarIds = array_merge($aCalendarIds, $aGoogleCalendarConf['other_ids']);
+            }
+        }
+        catch(Exception $e)
+        {
+            // Do nothing
+        }
+
+        // Loading next events
+        $aResult = GoogleCalendarAPIHelper::getNextEvents($aCalendarIds);
 
         // Preparing response data
         $aData['events'] = $aResult;
