@@ -30,10 +30,10 @@ class TransportController extends AbstractController {
                 'rank' => 1.5,
                 'routes' => ['SEM:C3']
             ],
-//            'SEM:0235' => [
-//                'rank' => 3,
-//                'routes' => ['SEM:C3']
-//            ],
+            'SEM:0235' => [
+                'rank' => 3,
+                'routes' => ['SEM:C3']
+            ],
 //            'SEM:0754' => [
 //                'rank' => 2,
 //                'routes' => ['SEM:C4']

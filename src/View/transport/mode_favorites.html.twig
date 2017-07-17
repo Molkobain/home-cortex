@@ -8,12 +8,12 @@
 
             {% for aStop in aStopTimes %}
                 {# Closing previous line div #}
-                {% if sPreviousRouteId != null and aStop.route.id != sPreviousRouteId and aStop.stop.name != sPreviousStopName %}
+                {% if sPreviousRouteId != null and (aStop.route.id != sPreviousRouteId or aStop.stop.name != sPreviousStopName) %}
                         </div>
                     </div>
                 {% endif %}
 
-                {% if aStop.route.id != sPreviousRouteId and aStop.stop.name != sPreviousStopName %}
+                {% if aStop.route.id != sPreviousRouteId or aStop.stop.name != sPreviousStopName %}
                     <div class="tsp_line tsp_line_compact" data-route-id="{{ aStop.route.id }}">
                         <div class="tsp_line_header">
                             <div class="tsp_line_logo pull-right" style="background-color: #{{ aStop.route.backgroundColor }}; color: #{{ aStop.route.foregroundColor }};">{{ aStop.route.shortName }}</div>
