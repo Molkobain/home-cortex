@@ -52,7 +52,17 @@
 
             /** Load a widget for the first time */
             var loadWidget = function(target, endpoint){
-                $(target).hide().load(endpoint, function(){ $(target).fadeIn(iDefaultFadingDuration); });
+                $(target).hide().load(endpoint, function(oResponse, sStatus, oXHR){
+                    if(sStatus === 'error')
+                    {
+                        console.log('loadWidget: Could not load widget in ' + target + ', retrying in 10s');
+                        setTimeout(function(){
+                            console.log('loadWidget: Retrying to load widget in ' + target);
+                            loadWidget(target, endpoint);
+                        }, 10000);
+                    }
+                    $(target).fadeIn(iDefaultFadingDuration);
+                });
             };
 
             /**
@@ -73,7 +83,7 @@
                 } else if ($.type(target) === "object") {
                     oTarget = target;
                 } else {
-                    console.log('updateWidget : Could not analyse target.', target);
+                    console.log('updateWidget: Could not analyse target.', target);
                     return false;
                 }
 
@@ -83,7 +93,7 @@
                 } else if ($.type(callback) === "function") {
                     oCallback = callback;
                 } else {
-                    console.log('updateWidget : Could not analyse callback.', callback);
+                    console.log('updateWidget: Could not analyse callback.', callback);
                     return false;
                 }
 

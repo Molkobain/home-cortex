@@ -49,7 +49,10 @@
                     $(this).html(oData);
                 })
                 .fail(function(oXHR, sStatus, sError) {
-                    //alert('Error while refreshing calendar widget : ' + sError);
+                    // Retrying in 30s in case of failure (Network, server, ...)
+                    setTimeout(function(){
+                        updateCalendar();
+                    }, 30000);
                 });
             }
         );

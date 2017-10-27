@@ -95,11 +95,16 @@
                         $(this).html(oData);
                     })
                     .fail(function(oXHR, sStatus, sError) {
-                        //alert('Error while refreshing transport widget : ' + sError);
+                        // Retrying in 30s in case of failure (Network, server, ...)
+                        setTimeout(function(){
+                            updateTransport();
+                        }, 30000);
                     });
                 }
             );
         };
+
+        var updateTransport
 
         $(document).ready(function() {
             // Update the widget every 20s (Will be called again when the ajax loads this HTML on .done())

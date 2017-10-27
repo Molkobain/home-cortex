@@ -25,7 +25,10 @@
                     $(this).html(oData);
                 })
                 .fail(function(oXHR, sStatus, sError) {
-                    //alert('Error while refreshing weather widget : ' + sError);
+                    // Retrying in 10min in case of failure (Network, server, ...)
+                    setTimeout(function(){
+                        updateTransport();
+                    }, 600000);
                 });
             }
         );
