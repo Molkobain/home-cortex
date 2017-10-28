@@ -1,3 +1,11 @@
+/* BS overrides */
+.container-fluid{
+    padding: 0px; /* No mirror : remove */
+}
+.row{
+    margin: 0px; /* No mirror : remove */
+}
+
 body{
     font-family: 'Roboto', serif;
     font-size: 1em;
@@ -22,16 +30,22 @@ body{
 .widgets_container{
 }
 .widgets_container .widget_container:first-child{
-    margin-top: 20px;
+    margin-top: 0px; /* No mirror : 20px */
 }
 .widgets_container .widget_container{
-    margin-top: 140px;
+    margin-top: 280px; /* No mirror : 140px */
+}
+.widgets_container.left_column .widget_container.active{
+    border-left: 2px solid white;
+}
+.widgets_container.right_column .widget_container.active{
+    border-right: 2px solid white;
 }
 .widgets_container.left_column .widget{
-    margin-left: 20px;
+    margin-left: 0px; /* No mirror : 20px */
 }
 .widgets_container.right_column .widget{
-    margin-right: 20px;
+    margin-right: 0px; /* No mirror : 20px */
 }
 /* - Weather widget */
 #weather_temp{
@@ -44,6 +58,7 @@ body{
 #weather_desc{
     margin-top: -10px;
     font-size: 18px;
+    font-weight: 400;
 }
 /* - Clock widget */
 #clock_time{
@@ -53,6 +68,7 @@ body{
     margin-top: -10px;
     margin-left: 4px;
     font-size: 18px;
+    font-weight: 400;
 }
 /* - Transport widget */
 .tsp_line{
@@ -120,6 +136,7 @@ body{
     font-size: 12px;
 }
 .tsp_line.tsp_line_compact .tsp_line_content .tsp_line_stop{
+    margin-top: 3px;
     margin-bottom: 0px;
 }
 .tsp_line.tsp_line_compact .tsp_line_content .tsp_line_direction{
@@ -137,6 +154,7 @@ body{
     padding-right: 7px;
     display: inline-block;
     font-size: 11px;
+    font-weight: 400;
 }
 .tsp_line.tsp_line_compact .tsp_line_content .tsp_line_time:last-child{
     margin-right: 0px
@@ -168,7 +186,8 @@ body{
 }
 .cal_period .cal_period_event{
     margin-bottom: -2px;
-    font-size: 11px;
+    font-size: 12px;
+    font-weight: 400;
 }
 .cal_period .cal_period_event:last-child {
     margin-bottom: 0px;
@@ -181,7 +200,7 @@ body{
 }
 .cal_period .cal_event_period{
     margin-right: 2px;
-    width: 28px;
+    width: 32px;
 }
 .cal_period .cal_event_title{
     max-width: 170px;
