@@ -7,6 +7,7 @@
 
 namespace Molkobain\HomeCortex\Helper\Transport;
 
+use Exception;
 use DateTime;
 use Molkobain\HomeCortex\Helper\DatetimeHelper;
 use Molkobain\HomeCortex\Helper\StringHelper;
@@ -63,7 +64,7 @@ class MetromobiliteAPIHelper {
     /**
      * Returns an array of stops in a cluster with their stoptimes
      *
-     * @todo Datas need to be converted to the app format
+     * @todo Data need to be converted to the app format
      * @param string $sClusterId
      * @return array
      */
@@ -80,6 +81,7 @@ class MetromobiliteAPIHelper {
      *
      * @param string $sStopId
      * @return array
+     * @throws Exception
      */
     public static function getStopTimes($sStopId) {
         // Retrieving data
@@ -98,7 +100,11 @@ class MetromobiliteAPIHelper {
                 
                 foreach ($aLine['times'] as $aTime) {
                     // Formatting remaining time
-                    $oDatetime = DatetimeHelper::makeDatetimeFromTimestamp(($aTime['realtime'] === true) ? $aTime['realtimeDeparture'] : $aTime['scheduledDeparture'], true);
+                    // - Making timestamp for stop time
+                    $sTimestamp = $aTime['serviceDay'] + (($aTime['realtime'] === true) ? $aTime['realtimeDeparture'] : $aTime['scheduledDeparture']);
+                    // - Converting to DateTime to manipulate it easily
+                    $oDatetime = DatetimeHelper::makeDatetimeFromTimestamp($sTimestamp, false);
+                    // - Computing delta time
                     $iSecondsToDatetime = abs($oDatetime->getTimestamp() - time());
                     if ($iSecondsToDatetime >= 60 * 60) {
                         $sIntervalFormat = '%hh%I';
