@@ -13,6 +13,7 @@ body{
     font-weight: 300;
     color: #FFF;
     background-color: #000;
+    overflow: hidden;
 }
 
 .effect_opacity{
