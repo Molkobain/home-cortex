@@ -38,7 +38,7 @@ class DatetimeHelper {
         if ($bIsDelta) {
             // Moving datetime back to midnight if timestamp is a delta
             $oNewDatetime->setTimestamp(strtotime('midnight', time()));
-            // COnverting timestamp to dateinterval
+            // Converting timestamp to dateinterval
             $oTodayDateInterval = new DateInterval('PT' . $iTimestamp . 'S');
             // Adding it to the datetime
             $oNewDatetime->add($oTodayDateInterval);
