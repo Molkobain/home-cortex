@@ -27,7 +27,7 @@ class CalendarController extends AbstractController {
         $aCalendarIds = [];
         try
         {
-            $aGoogleCalendarConf = $oApp['parameters']['calendar_providers']['google'];
+            $aGoogleCalendarConf = $oApp['parameters']['providers']['calendar']['google'];
             // - Primary calendar
             if(isset($aGoogleCalendarConf['primary_id']))
             {

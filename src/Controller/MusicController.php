@@ -31,7 +31,10 @@ class MusicController extends AbstractController {
         $aData = [];
 
         // Preparing response data
-        $aData['aPlayer']['sAppId'] = $oApp['parameters']['music_providers']['deezer']['app_id'];
+        $aData['aPlayer'] = [
+            'sAppId' => $oApp['parameters']['providers']['transport']['deezer']['app_id'],
+            'sChannelUrl' => $oApp['url_generator']->generate('m_music_channel'),
+        ];
         $sTemplate = 'music/widget.html.twig';
 
         return $oApp['twig']->render($sTemplate, $aData);

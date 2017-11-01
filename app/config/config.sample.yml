@@ -13,20 +13,53 @@ parameters:
     port: 3306
     user: root
     password: password
-  weather_providers:
-    openweathermap:
-      api_key: PUT_YOUR_API_KEY
-    weatherunderground:
-      api_key: PUT_YOUR_API_KEY
-  music_providers:
-    deezer:
-      app_id: PUT_YOUR_APP_ID
-      secret_key: PUT_YOUR_APP_SECRET
-  calendar_providers:
+  modules:
+#    MODULE_ID:
+#      # Mandatory
+#      enabled: true|false
+#      # Optional, default provider to use when several are configured
+#      default_provider: <PROVIDER_ID>
+#      # Optional, route to load the module's widget. Default is m_<MODULE_ID>_widget
+#      route: <ROUTE_ID>
+#      # Optional, column the module's widget has to be rendered into
+#      # Note: Rank is defined by declaration order in the configuration file
+#      layout:
+#        column: left|right
+    clock:
+      enabled: true
+      layout:
+        column: left
+    weather:
+      enabled: true
+      route: m_weather_forecast_today
+      layout:
+        column: right
+    calendar:
+      enabled: true
+      route: m_calendar_next_events
+      layout:
+        column: left
+    transport:
+      enabled: true
+      route: m_transport_favorites
+      layout:
+        column: right
+    music:
+      enabled: false
+      route: m_music_player_init
+      layout:
+        column: right
+  providers:
+    weather:
+      openweathermap:
+        api_key: PUT_YOUR_API_KEY
+      weatherunderground:
+        api_key: PUT_YOUR_API_KEY
+    calendar:
       google:
         primary_id: PUT_YOUR_GMAIL_EMAIL_ADDRESS
         other_ids: []
-  transport_providers:
+    transport:
       metromobilite:
         favorites:
           stops:
@@ -39,3 +72,7 @@ parameters:
             STOP_ID_3:
               rank: 3
               routes: [ROUTE_ID_2]
+    music:
+      deezer:
+        app_id: PUT_YOUR_APP_ID
+        secret_key: PUT_YOUR_APP_SECRET

@@ -28,24 +28,15 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="pull-left">
-                    <div class="left_column widgets_container">
-                        <div id="clock_widget" class="widget_container">
-                        </div>
-                        <div id="calendar_widget" class="widget_container">
-                        </div>
-                    </div>
-                </div>
-                <div class="pull-right">
-                    <div class="right_column widgets_container">
-                        <div id="weather_widget" class="widget_container">
-                        </div>
-                        <div id="transport_widget" class="widget_container">
-                        </div>
-                        <div id="music_widget" class="widget_container">
+                {%  for sColumn, aModuleIds in app['properties.layout'].columns %}
+                    <div class="pull-{{ sColumn }}">
+                        <div class="{{ sColumn }}_column widgets_container">
+                            {% for sModuleId in aModuleIds %}
+                                <div id="{{ sModuleId }}_widget" class="widget_container"></div>
+                            {% endfor %}
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -73,6 +64,7 @@
              * @param mixed target Can be either a selector or a jQuery element
              * @param mixed callback Can be either a function name or an anonymous function
              * @param integer iDuration
+             *
              * @returns boolean
              */
             var updateWidget = function(target, callback, iDuration) {
@@ -115,16 +107,10 @@
 
             $(document).ready(function() {
                 // Loading widgets
-                // - Clock
-                loadWidget('#clock_widget', '{{ app['url_generator'].generate('clock_show') }}');
-                // - Calendar
-                loadWidget('#calendar_widget', '{{ app['url_generator'].generate('calendar_next_events') }}');
-                // - Weather
-                loadWidget('#weather_widget', '{{ app['url_generator'].generate('weather_forecast_today') }}');
-                // - Transport
-                loadWidget('#transport_widget', '{{ app['url_generator'].generate('transport_favorites') }}');
-                // - Music
-                loadWidget('#music_widget', '{{ app['url_generator'].generate('music_player_init') }}');
+                {% for sId, aParams in app['properties.modules'] %}
+                    // - {{ sId }}
+                    loadWidget('#{{ sId }}_widget', '{{ app['url_generator'].generate(aParams.route) }}');
+                {% endfor %}
             });
         </script>
     </body>

@@ -17,7 +17,7 @@ class CalendarRouter extends AbstractRouter {
     static $aRoutes = [
         ['pattern' => '/calendar/next-events',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\CalendarController::showAction',
-            'bind' => 'calendar_next_events'
+            'bind' => 'm_calendar_next_events'
         ],
     ];
 

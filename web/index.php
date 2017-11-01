@@ -37,6 +37,7 @@ ApplicationHelper::loadAppVariables($oApp);
 ApplicationHelper::loadRouters();
 ApplicationHelper::registerRoutes($oApp);
 ApplicationHelper::registerTwigExtensions($oApp);
+ApplicationHelper::loadAppProperties($oApp);
 ApplicationHelper::registerWeatherApi($oApp);
 
 // Running application

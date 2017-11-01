@@ -17,7 +17,7 @@ class WeatherRouter extends AbstractRouter {
     static $aRoutes = [
         ['pattern' => '/weather/forecast/today',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\WeatherController::forecastTodayAction',
-            'bind' => 'weather_forecast_today'
+            'bind' => 'm_weather_forecast_today'
         ],
     ];
 

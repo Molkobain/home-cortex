@@ -26,7 +26,7 @@ class TransportController extends AbstractController {
         $aRequestedStops = [];
         try
         {
-            $aRequestedStops = $oApp['parameters']['transport_providers']['metromobilite']['favorites']['stops'];
+            $aRequestedStops = $oApp['parameters']['providers']['transport']['metromobilite']['favorites']['stops'];
         }
         catch(Exception $e)
         {

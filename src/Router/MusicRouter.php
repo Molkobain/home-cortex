@@ -17,11 +17,11 @@ class MusicRouter extends AbstractRouter {
     static $aRoutes = [
         ['pattern' => '/music/channel',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\MusicController::showChannelAction',
-            'bind' => 'music_channel'
+            'bind' => 'm_music_channel'
         ],
         ['pattern' => '/music/player',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\MusicController::showPlayerAction',
-            'bind' => 'music_player_init'
+            'bind' => 'm_music_player_init'
         ],
     ];
 

@@ -40,7 +40,7 @@
             '#calendar_widget',
             function() {
                 $.ajax({
-                    url: '{{ app['url_generator'].generate('calendar_next_events') }}',
+                    url: '{{ app['url_generator'].generate('m_calendar_next_events') }}',
                     context: $('#calendar_widget'),
                     dataType: 'html'
                 })

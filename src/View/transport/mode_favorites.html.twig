@@ -86,7 +86,7 @@
                 '#transport_widget',
                 function() {
                     $.ajax({
-                        url: '{{ app['url_generator'].generate('transport_favorites') }}',
+                        url: '{{ app['url_generator'].generate('m_transport_favorites') }}',
                         context: $('#transport_widget'),
                         dataType: 'html'
                     })

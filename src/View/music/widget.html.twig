@@ -47,7 +47,7 @@
         setTimeout(function(){
             DZ.init({
                 appId: '{{ aPlayer.sAppId }}',
-                channelUrl: '{{ app['url_generator'].generate('music_channel') }}',
+                channelUrl: '{{ aPlayer.sChannelUrl }}',
             });
         }, 5000);
     });

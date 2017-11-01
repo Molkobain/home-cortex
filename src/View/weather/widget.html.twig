@@ -16,7 +16,7 @@
             '#weather_widget',
             function() {
                 $.ajax({
-                    url: '{{ app['url_generator'].generate('weather_forecast_today') }}',
+                    url: '{{ app['url_generator'].generate('m_weather_forecast_today') }}',
                     context: $('#weather_widget'),
                     dataType: 'html'
                 })

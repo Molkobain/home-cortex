@@ -61,6 +61,97 @@ class ApplicationHelper {
     }
 
     /**
+     * Loads application properties such as
+     * - Layout (module widgets)
+     * - Modules registered
+     * - Providers registered
+     *
+     * @param \Silex\Application $oApp
+     *
+     * @throws Exception
+     */
+    public static function loadAppProperties(Application $oApp) {
+        $aLayout = [
+            'columns' => [
+                'left' => [],
+                'right' => [],
+            ]
+        ];
+        $aModules = [];
+        $aProviders = [];
+
+        // Parsing modules declaration in conf
+        foreach($oApp['parameters']['modules'] as $sId => $aParams)
+        {
+            // Skipping module if not enabled
+            if($aParams['enabled'] === true)
+            {
+                $aModules[$sId] = [
+                    'route' => 'm_'.$sId.'_widget',
+                    'providers' => [],
+                    'default_provider' => null,
+                ];
+            }
+            else
+            {
+                continue;
+            }
+
+            // Retrieving route
+            if(array_key_exists('route', $aParams))
+            {
+                $aModules[$sId]['route'] = $aParams['route'];
+            }
+
+            // Retrieving providers
+            if(array_key_exists($sId, $oApp['parameters']['providers']))
+            {
+                $aProviders[$sId] = $oApp['parameters']['providers'][$sId];
+            }
+            // Retrieving default provider
+            if(!empty($aProviders[$sId]))
+            {
+                $aAvailableProviderIds = array_keys($aProviders[$sId]);
+
+                // If specified in conf, we check that it exist
+                if(array_key_exists('default_provider', $aParams))
+                {
+                    $sDefaultProviderId = $aParams['default_provider'];
+                    if(!array_key_exists($sDefaultProviderId, $aAvailableProviderIds))
+                    {
+                        throw new Exception('Module configuration: Invalid default_provider "' . $sDefaultProviderId . '", only ' . implode('/', $aAvailableProviderIds) . ' registered.');
+                    }
+                }
+                // Otherwise we take the first declared in conf
+                else
+                {
+                    $sDefaultProviderId = $aAvailableProviderIds[0];
+                }
+                $aModules[$sId]['default_provider'] = $sDefaultProviderId;
+            }
+            else
+            {
+                // Do nothing as a module can have no provider (eg. clock)
+            }
+
+            // Retrieving layout
+            if(array_key_exists('layout', $aParams) && array_key_exists('column', $aParams['layout']))
+            {
+                $sModuleColumn = $aParams['layout']['column'];
+            }
+            else
+            {
+                $sModuleColumn = 'left';
+            }
+            $aLayout['columns'][$sModuleColumn][] = $sId;
+        }
+
+        $oApp['properties.layout'] = $aLayout;
+        $oApp['properties.modules'] = $aModules;
+        $oApp['properties.providers'] = $aProviders;
+    }
+
+    /**
      * Loads classes from the base portal
      *
      * @param string $sScannedDir Directory to load the files from
@@ -199,7 +290,7 @@ class ApplicationHelper {
 //        // OpenWeatherMap
 //        try {
 //            // - Api key
-//            $sOWMApiKey = $oApp['parameters']['weather_providers']['openweathermap']['api_key'];
+//            $sOWMApiKey = $oApp['parameters']['providers']['weather']['openweathermap']['api_key'];
 //            OpenWeatherMapAPIHelper::setApiKey($sOWMApiKey);
 //            // - Locale
 //            // TODO : This should be done in the helper like for WeatherUndergroundAPIHelper
@@ -215,10 +306,10 @@ class ApplicationHelper {
         // WeatherUnderground
         try {
             // - Api key
-            $sWUApiKey = $oApp['parameters']['weather_providers']['weatherunderground']['api_key'];
+            $sWUApiKey = $oApp['parameters']['providers']['weather']['weatherunderground']['api_key'];
             WeatherUndergroundAPIHelper::setApiKey($sWUApiKey);
             // - Locale
-            $sWULocale = $oApp['parameters']['weather_providers']['weatherunderground']['api_key'];
+            $sWULocale = $oApp['parameters']['providers']['weather']['weatherunderground']['api_key'];
             WeatherUndergroundAPIHelper::setLocale($oApp['parameters']['locale']);
         } catch (Exception $e) {
             // Do nothing

@@ -17,7 +17,7 @@ class ClockRouter extends AbstractRouter {
     static $aRoutes = [
         ['pattern' => '/clock/show',
             'callback' => 'Molkobain\\HomeCortex\\Controller\\ClockController::showAction',
-            'bind' => 'clock_show'
+            'bind' => 'm_clock_widget'
         ],
     ];
 
