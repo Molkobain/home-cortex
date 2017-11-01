@@ -95,6 +95,8 @@
                         $(this).html(oData);
                     })
                     .fail(function(oXHR, sStatus, sError) {
+                        // Emptying widget as we don't want to show deprecated informations
+                        $(this).html('');
                         // Retrying in 30s in case of failure (Network, server, ...)
                         setTimeout(function(){
                             updateTransport();
