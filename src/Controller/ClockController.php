@@ -21,7 +21,7 @@ class ClockController extends AbstractController {
         // Note : This could be passed with JS format so the client knows how to handle it
         $aData = [
             'datetime' => [
-                'date' => ucfirst(utf8_encode(strftime('%A %#d %B'))),
+                'date' => ucfirst(strftime('%A %#d %B')),
                 'time' => strftime('%H:%M')
             ]
         ];
