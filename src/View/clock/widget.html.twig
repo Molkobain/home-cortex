@@ -35,12 +35,39 @@
         }
         else if (sPrevTime !== sNewTime)
         {
-            updateWidget(
+            // Reloading date from server as we can't localize it in JS
+            if(sNewTime === '00:00')
+            {
+                updateWidget(
+                    '#clock_wudget',
+                    function() {
+                        $.ajax({
+                            url: '{{ app['url_generator'].generate('m_clock_widget') }}',
+                            context: $('#clock_widget'),
+                            dataType: 'html'
+                        })
+                         .done(function(oData, sStatus, oXHR) {
+                             // Replacing widget content
+                             $(this).html(oData);
+                         })
+                         .fail(function(oXHR, sStatus, sError) {
+                             // Retrying in 30s in case of failure (Network, server, ...)
+                             setTimeout(function(){
+                                 updateClock(sNewDate, sNewTime);
+                             }, 30000);
+                         });
+                    }
+                );
+            }
+            else
+            {
+                updateWidget(
                     $('#clock_time').parent(),
                     function() {
                         updateClock(sNewDate, sNewTime);
                     }
-            );
+                );
+            }
         }
 
         // Update the widget every 2s
