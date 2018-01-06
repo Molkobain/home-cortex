@@ -27,7 +27,7 @@
                 .fail(function(oXHR, sStatus, sError) {
                     // Retrying in 10min in case of failure (Network, server, ...)
                     setTimeout(function(){
-                        updateTransport();
+                        updateWeather();
                     }, 600000);
                 });
             }
