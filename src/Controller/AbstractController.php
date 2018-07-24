@@ -15,5 +15,3 @@ namespace Molkobain\HomeCortex\Controller;
 abstract class AbstractController {
 
 }
-
-?>

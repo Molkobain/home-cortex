@@ -21,11 +21,8 @@ class WeatherUndergroundAPIHelper {
 
     const ENUM_SEARCH_MODE_NAME = 1;
     const ENUM_SEARCH_MODE_COORDINATES = 2;
-//    const ENUM_UNITS_METRIC = 'metric';
-//    const ENUM_UNITS_IMPERIAL = 'imperial';
     const DEFAULT_SEARCH_MODE = self::ENUM_SEARCH_MODE_NAME;
     const DEFAULT_LOCALE = 'EN';
-//    const DEFAULT_UNITS = 'metrics';
 
     public static $sBaseUrl = 'http://api.wunderground.com/api/{sApiKey}/lang:{sLocale}/';
     public static $aUrls = [
@@ -34,7 +31,6 @@ class WeatherUndergroundAPIHelper {
 
     public static $sApiKey = null;
     public static $sLocale = self::DEFAULT_LOCALE;
-//    public static $sUnits = self::DEFAULT_UNITS;
 
     public static function setApiKey($sApiKey) {
         static::$sApiKey = $sApiKey;
@@ -48,15 +44,14 @@ class WeatherUndergroundAPIHelper {
         static::$sLocale = $sWULocale;
     }
 
-//    public static function setUnits($sUnits) {
-//        static::$sUnits = $sUnits;
-//    }
-
     /**
      * Returns weather conditions for today in the city defined by $value
      *
      * @param mixed $value City to get conditions for, can be either an array of latitude/longitude or country/city
+     *
      * @return array
+     *
+     * @throws \Exception
      */
     public static function getToday($value, $sMode = self::DEFAULT_SEARCH_MODE) {
         // Parsing parameters
@@ -98,7 +93,10 @@ class WeatherUndergroundAPIHelper {
      * Return the code of the icon from the local set that matches $sCode
      *
      * @param string $sCode
+     *
      * @return string The local icon code that matches $sIcon
+     *
+     * @throws \Exception
      */
     private static function findIconFromCode($sCode) {
         // TODO : Find night icons
@@ -172,4 +170,3 @@ class WeatherUndergroundAPIHelper {
 
     
 }
-

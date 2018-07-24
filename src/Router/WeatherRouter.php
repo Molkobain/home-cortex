@@ -22,5 +22,3 @@ class WeatherRouter extends AbstractRouter {
     ];
 
 }
-
-?>

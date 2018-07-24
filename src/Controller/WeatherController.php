@@ -18,6 +18,14 @@ use Molkobain\HomeCortex\Helper\Weather\WeatherUndergroundAPIHelper;
  */
 class WeatherController extends AbstractController {
 
+    /**
+     * @param Symfony\Component\HttpFoundation\Request $oRequest
+     * @param Silex\Application $oApp
+     *
+     * @return mixed
+     *
+     * @throws \Exception
+     */
     public function forecastTodayAction(Request $oRequest, Application $oApp) {
         // Note : This could be passed with JS format so the client knows how to handle it
         $aData = [];
@@ -34,5 +42,3 @@ class WeatherController extends AbstractController {
     }
 
 }
-
-?>

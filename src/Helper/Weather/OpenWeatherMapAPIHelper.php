@@ -52,7 +52,10 @@ class OpenWeatherMapAPIHelper {
      * Returns weather conditions for today in the city defined by $value
      *
      * @param mixed $value City to get conditions for, can be either an array of latitude/longitude or the city's name
+     *
      * @return array
+     *
+     * @throws \Exception
      */
     public static function getToday($value, $sMode = self::DEFAULT_SEARCH_MODE) {
         // Parsing parameters
@@ -97,7 +100,10 @@ class OpenWeatherMapAPIHelper {
      * Return the code of the icon from the local set that matches $sCode
      *
      * @param string $sCode
+     *
      * @return string The local icon code that matches $sIcon
+     *
+     * @throws \Exception
      */
     private static function findIconFromCode($sCode) {
         // TODO : Find night icons
@@ -179,4 +185,3 @@ class OpenWeatherMapAPIHelper {
 
     
 }
-

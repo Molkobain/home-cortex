@@ -22,5 +22,3 @@ class CalendarRouter extends AbstractRouter {
     ];
 
 }
-
-?>

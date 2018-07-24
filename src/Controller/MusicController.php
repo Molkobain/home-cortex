@@ -32,7 +32,7 @@ class MusicController extends AbstractController {
 
         // Preparing response data
         $aData['aPlayer'] = [
-            'sAppId' => $oApp['parameters']['providers']['transport']['deezer']['app_id'],
+            'sAppId' => $oApp['parameters']['providers']['music']['deezer']['app_id'],
             'sChannelUrl' => $oApp['url_generator']->generate('m_music_channel'),
         ];
         $sTemplate = 'music/widget.html.twig';
@@ -41,5 +41,3 @@ class MusicController extends AbstractController {
     }
 
 }
-
-?>

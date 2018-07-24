@@ -55,5 +55,3 @@ class CalendarController extends AbstractController {
     }
 
 }
-
-?>

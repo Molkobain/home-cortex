@@ -26,5 +26,3 @@ class MusicRouter extends AbstractRouter {
     ];
 
 }
-
-?>

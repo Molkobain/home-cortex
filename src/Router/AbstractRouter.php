@@ -119,5 +119,3 @@ abstract class AbstractRouter
 	}
 
 }
-
-?>
