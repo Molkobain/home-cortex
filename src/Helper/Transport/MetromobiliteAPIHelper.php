@@ -92,6 +92,13 @@ class MetromobiliteAPIHelper {
         $aStopTimes = [];
         try {
             foreach ($aResult as $aLine) {
+                // Skip xxx:yyy:1 as this seems to be a glitch in the API since a recent update.
+                $aLineIdParts = explode(':', $aLine['pattern']['id']);
+                if(isset($aLineIdParts[2]) && $aLineIdParts[2] === '1')
+                {
+                    continue;
+                }
+
                 $aLineTimes = [
                     'direction' => $aLine['pattern']['dir'],
                     'description' => StringHelper::toCamelCase($aLine['pattern']['desc'], false),
@@ -180,5 +187,3 @@ class MetromobiliteAPIHelper {
 
     
 }
-
-?>
