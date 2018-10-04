@@ -36,12 +36,17 @@ body{
 }
 .widgets_container .widget_container{
     margin-top: 280px; /* No mirror : 140px */
+    padding: 0px;
+    border: 0px solid transparent;
+    transition: all 0.2s linear;
 }
 .widgets_container.left_column .widget_container.active{
     border-left: 2px solid white;
+    padding-left: 15px;
 }
 .widgets_container.right_column .widget_container.active{
     border-right: 2px solid white;
+    padding-right: 15px;
 }
 .widgets_container.left_column .widget{
     margin-left: 0px; /* No mirror : 20px */
@@ -49,6 +54,7 @@ body{
 .widgets_container.right_column .widget{
     margin-right: 0px; /* No mirror : 20px */
 }
+
 /* - Weather widget */
 #weather_temp{
     font-size: 72px;
@@ -62,6 +68,7 @@ body{
     font-size: 18px;
     font-weight: 400;
 }
+
 /* - Clock widget */
 #clock_time{
     font-size: 72px;
@@ -72,6 +79,7 @@ body{
     font-size: 18px;
     font-weight: 400;
 }
+
 /* - Transport widget */
 .tsp_line{
     /*max-width: 155px; This doesn't seem to be needed anymore */
@@ -168,7 +176,8 @@ body{
     width: initial;
     font-size: 7px;
 }
-/* Calendar widget */
+
+/* - Calendar widget */
 .cal_period{
     margin-bottom: 15px;
     color: #DDD;
@@ -214,3 +223,29 @@ body{
     margin-right: 2px;
     border-radius: 1px;
 }
+
+/* - Music widget (Deezer) */
+.player{-webkit-transition-duration: .15s;-webkit-transition-property: margin;bottom: 0;height: 310px;left: 0;position: absolute;right: 0;transition-duration: .15s;transition-property: margin}
+.player:after{background-image: inline-image("common/base64/shadow_top.png");bottom: 100%;content: "";height: 3px;left: 0;position: absolute;width: 100%}
+.player-cover{height: 220px;position: relative}
+.player-cover:hover .player-progress{height: 6px}
+.player-cover:hover .player-progress .progress-seek-overlay{bottom: 6px;height: 214px}
+.player-cover:hover .player-progress .progress-handler, .player-cover:hover .player-progress .progress-length, .player-cover:hover .player-progress .progress-time{opacity: 1}
+.player-cover:hover .player-progress .progress-length, .player-cover:hover .player-progress .progress-time{background-color: rgba(239, 239, 242, .27)}
+.player-overlay{background-color: #191922;height: 100%;left: 0;opacity: .65;position: absolute;top: 0;width: 100%;z-index: 10}
+.player-track{left: 0;padding: 0 20px;pointer-events: none;position: absolute;right: 0;top: 30px;z-index: 20}
+.player-track-link{-webkit-transition-duration: .15s;-webkit-transition-property: color;cursor: pointer;pointer-events: auto;position: relative;transition-duration: .15s;transition-property: color}
+.player-track-title{color: #ffffff;font-weight: 600;line-height: 24px;max-height: 75px;overflow: hidden}
+.player-track-title .player-track-link{color: #ffffff}
+.player-track-artist, .player-track-artist .player-track-link{color: #ffffff}
+.player-progress{-webkit-transition-duration: .15s;-webkit-transition-property: height;bottom: 0;height: 4px;left: 0;position: absolute;transition-duration: .15s;transition-property: height;width: 100%;z-index: 15}
+.player-progress .progress{background-color: #efeff2;bottom: 0;cursor: pointer;left: 0;position: absolute;top: 0;width: 0}
+.player-progress.player-seek-disabled .progress{cursor: auto}
+.player-progress .progress-background{opacity: .1;width: 100%}
+.player-progress .progress-buffer{opacity: .2}
+.player-progress .progress-seek-overlay{-webkit-transition-duration: .15s;-webkit-transition-property: height, bottom;background-color: #ffffff;bottom: 4px;cursor: default;height: 216px;left: 0;opacity: .05;position: absolute;transition-duration: .15s;transition-property: height, bottom;width: 100%}
+.player-progress .progress-handler{-webkit-transition-duration: .15s;-webkit-transition-property: opacity;background-color: #efeff2;border-radius: 6px;cursor: pointer;height: 12px;left: 0;margin: -6px 0 0 -6px;opacity: 0;position: absolute;top: 50%;transition-duration: .15s;transition-property: opacity;width: 12px;z-index: 5}
+.player-progress .progress-handler:focus{opacity: 1}
+.player-progress .progress-length, .player-progress .progress-time{-webkit-transition-duration: .15s;-webkit-transition-property: background-color, opacity;background-color: rgba(0, 0, 0, 0);bottom: 6px;color: #ffffff;font-size: 9px;line-height: 16px;opacity: 0;padding: 2px 6px;position: absolute;transition-duration: .15s;transition-property: background-color, opacity}
+.player-progress .progress-time{border-top-right-radius: 3px;left: 0}
+.player-progress .progress-length{border-top-left-radius: 3px;right: 0}
