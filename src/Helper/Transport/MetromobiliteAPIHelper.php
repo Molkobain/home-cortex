@@ -13,16 +13,16 @@ use Molkobain\HomeCortex\Helper\DatetimeHelper;
 use Molkobain\HomeCortex\Helper\StringHelper;
 
 /**
- * MetromibiliteAPIHelper is based on http://www.metromobilite.fr APIs
+ * MetromibiliteAPIHelper is based on https://www.metromobilite.fr APIs
  * It allows to retrieve informations on transportation in the Grenoble, FR area
  *
- * More informations on http://www.metromobilite.fr/pages/opendata/OpenDataApi.html
+ * More informations on https://www.metromobilite.fr/pages/opendata/OpenDataApi.html
  *
  * @author Guillaume Lajarige <lajarige.guillaume@free.fr>
  */
 class MetromobiliteAPIHelper {
 
-    public static $sBaseUrl = 'http://data.metromobilite.fr/';
+    public static $sBaseUrl = 'https://data.metromobilite.fr/';
     public static $aUrls = [
         'routes' => 'api/routers/default/index/routes?codes={sRouteIds}',
         'clustertimes' => 'api/routers/default/index/clusters/{sClusterId}/stoptimes',
